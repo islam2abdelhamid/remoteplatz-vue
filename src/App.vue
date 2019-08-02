@@ -1,23 +1,36 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <div id="wrapper">
+      <sidebar />
+      <!-- Main Content -->
+      <div id="content-wrapper">
+        <div id="content">
+          <Navbar />
+          <router-view></router-view>
+        </div>
+        <!-- end of content -->
+      </div>
+      <!-- end of content wrapper -->
+    </div>
+    <!-- end of  wrapper -->
   </div>
 </template>
 
 <script>
+import Navbar from "@/components/Admin/Navbar";
+import Sidebar from "@/components/Admin/Sidebar";
 export default {
-  name: 'App'
-}
+  components: {
+    Navbar: Navbar,
+    Sidebar: Sidebar
+  },
+  name: "App"
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+@import "assets/css/admin_style.css";
 </style>
+
+
+    

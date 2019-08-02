@@ -1,15 +1,14 @@
 <template>
   <div class="hello">
-    <h2>Essential Links</h2>
+    <h2>Positions</h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "Positions",
   data() {
     return {};
   }
 };
 </script>
-
