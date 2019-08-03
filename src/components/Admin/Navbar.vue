@@ -165,7 +165,7 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.userName }}</span>
           <img
             class="img-profile rounded-circle"
             src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
@@ -189,7 +189,7 @@
             Activity Log
           </a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+          <a class="dropdown-item" href="#" @click="logout()">
             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
             Logout
           </a>
@@ -205,19 +205,32 @@ export default {
   name: "Navbar",
   data() {
     return {
-      isLogged: true,
-      token: "85be6fd011a8a308e1cff8c61e5035840e04dd6289d8",
       user: ""
     };
   },
   methods: {
     checkIfLogged() {
-      if (this.isLogged) {
-        localStorage.setItem("adminToken", this.token);
-        return true;
+      console.log(" loggin");
+
+      if (localStorage.getItem("adminToken")) {
+        this.user = JSON.parse(localStorage.getItem("currentAdmin"));
+        console.log(" loggin");
       } else {
-        this.$router.replace(this.$route.query.redirect || "/admin/login");
+        console.log("not loggin");
       }
+    },
+    logout() {
+      this.$http
+        .get("/logout", {
+          headers: {
+            token: localStorage.getItem("adminToken")
+          }
+        })
+        .then(res => {
+          localStorage.removeItem("adminToken");
+          location.reload();
+        })
+        .catch(err => console.log(err.message));
     }
   },
   created() {

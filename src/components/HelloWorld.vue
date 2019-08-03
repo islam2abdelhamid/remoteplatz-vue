@@ -9,6 +9,9 @@ export default {
   name: "HelloWorld",
   data() {
     return {};
+  },
+  created() {
+    this.$router.replace(this.$route.query.redirect || "/admin/");
   }
 };
 </script>

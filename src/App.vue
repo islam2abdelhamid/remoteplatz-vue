@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div id="wrapper">
-      <sidebar />
+      <sidebar v-if="isLogged" />
       <!-- Main Content -->
       <div id="content-wrapper">
         <div id="content">
-          <Navbar />
+          <Navbar v-if="isLogged" />
           <router-view></router-view>
         </div>
         <!-- end of content -->
@@ -24,7 +24,26 @@ export default {
     Navbar: Navbar,
     Sidebar: Sidebar
   },
-  name: "App"
+  name: "App",
+  data() {
+    return {
+      isLogged: false
+    };
+  },
+  watch: {
+    $route(to, from) {
+      if (localStorage.getItem("adminToken")) {
+        this.isLogged = true;
+      }
+    }
+  },
+  created() {
+    if (localStorage.getItem("adminToken")) {
+      this.isLogged = true;
+    } else {
+      this.$router.replace(this.$route.query.redirect || "/admin/login");
+    }
+  }
 };
 </script>
 

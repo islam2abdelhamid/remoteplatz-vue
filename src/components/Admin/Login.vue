@@ -16,7 +16,9 @@
                   <form class="user">
                     <div class="form-group">
                       <input
-                        type="email"
+                        v-model="userName"
+                        required
+                        type="text"
                         class="form-control form-control-user"
                         id="exampleInputEmail"
                         aria-describedby="emailHelp"
@@ -25,6 +27,8 @@
                     </div>
                     <div class="form-group">
                       <input
+                        required
+                        v-model="password"
                         type="password"
                         class="form-control form-control-user"
                         id="exampleInputPassword"
@@ -37,7 +41,12 @@
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
-                    <a href="index.html" class="btn btn-primary btn-user btn-block">Login</a>
+
+                    <button
+                      type="submit"
+                      @click.prevent="login()"
+                      class="btn btn-primary btn-user btn-block"
+                    >Login</button>
                     <hr />
                   </form>
                   <hr />
@@ -58,7 +67,40 @@
 export default {
   name: "Login",
   data() {
-    return {};
+    return {
+      userName: "",
+      password: ""
+    };
+  },
+  methods: {
+    login() {
+      if (this.userName && this.password) {
+        this.$http
+          .post("/admin/auth", {
+            userName: this.userName,
+            password: this.password
+          })
+          .then(res => {
+            localStorage.setItem("adminToken", res.data.token);
+            localStorage.setItem(
+              "currentAdmin",
+              JSON.stringify(res.data.admin)
+            );
+            location.reload();
+          })
+          .catch(er => console.log(er.message));
+      }
+    },
+    checkIfLogged() {
+      console.log(localStorage.getItem("adminToken"));
+
+      if (localStorage.getItem("adminToken")) {
+        this.$router.replace(this.$route.query.redirect || "/admin/");
+      }
+    }
+  },
+  created() {
+    this.checkIfLogged();
   }
 };
 </script>

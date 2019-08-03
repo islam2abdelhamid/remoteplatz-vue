@@ -159,23 +159,12 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>City</th>
-                <th>Title</th>
+                <th>Category</th>
                 <th>Status</th>
                 <th>Action</th>
                 <th>Action</th>
               </tr>
             </thead>
-            <tfoot>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>City</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Action</th>
-                <th>Action</th>
-              </tr>
-            </tfoot>
             <tbody>
               <tr v-for="(user, index) in unverifiedTalents" :key="index">
                 <td>{{ user.first_name }}</td>
@@ -185,10 +174,17 @@
                 <td v-if="user.verified">Verified</td>
                 <td v-else>Unverified</td>
                 <td>
-                  <button class="btn btn-warning">edit</button>
+                  <button
+                    class="btn btn-warning"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#editUserModal"
+                    data-whatever="@mdo"
+                    @click="getId(user.id)"
+                  >edit</button>
                 </td>
                 <td>
-                  <button class="btn btn-danger">delete</button>
+                  <button class="btn btn-danger" @click="deleteUser(user.id)">delete</button>
                 </td>
               </tr>
             </tbody>
@@ -196,6 +192,116 @@
         </div>
       </div>
     </div>
+
+    <div
+      class="modal fade"
+      id="editUserModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editUserModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editUserModalLabel">Set User Info</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="setUserInf()">
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Position:</label>
+                <input v-model="user.position" type="text" class="form-control" id="recipient-name" />
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">English Score:</label>
+                <input
+                  v-model="user.englishScore"
+                  type="number"
+                  min="0"
+                  max="10"
+                  class="form-control"
+                  id="recipient-name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Experience Score:</label>
+                <input
+                  v-model="user.experienceScore"
+                  type="number"
+                  min="0"
+                  max="10"
+                  class="form-control"
+                  id="recipient-name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Technical Score:</label>
+                <input
+                  v-model="user.technicalScore"
+                  type="number"
+                  min="0"
+                  max="10"
+                  class="form-control"
+                  id="recipient-name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Enthusiasm Score:</label>
+                <input
+                  v-model="user.enthusiasmScore"
+                  type="number"
+                  min="0"
+                  max="10"
+                  class="form-control"
+                  id="recipient-name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Education Score:</label>
+                <input
+                  v-model="user.educationScore"
+                  type="number"
+                  min="0"
+                  max="10"
+                  class="form-control"
+                  id="recipient-name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Attitude Score:</label>
+                <input
+                  v-model="user.attitudeScore"
+                  type="number"
+                  min="0"
+                  max="10"
+                  class="form-control"
+                  id="recipient-name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Collaboration Score:</label>
+                <input
+                  v-model="user.collaborationScore"
+                  type="number"
+                  min="0"
+                  max="10"
+                  class="form-control"
+                  id="recipient-name"
+                />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- /.container-fluid -->
   </div>
 
@@ -208,7 +314,6 @@ export default {
   name: "Home",
   data() {
     return {
-      token: localStorage.getItem("adminToken"),
       statistics: {
         newUsers: 0,
         places: [],
@@ -218,16 +323,73 @@ export default {
         usersCount: 0,
         users: {}
       },
+      user: {
+        id: 0,
+        position: "",
+        englishScore: 0,
+        experienceScore: 0,
+        technicalScore: 0,
+        enthusiasmScore: 0,
+        educationScore: 0,
+        attitudeScore: 0,
+        collaborationScore: 0
+      },
       loaded: null,
       unverifiedTalents: {}
     };
   },
   methods: {
+    deleteUser(id) {
+      this.$http
+        .delete("/user/delete/" + id, {
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.getItem("adminToken")
+          }
+        })
+        .then(res => {
+          alert("user deleted successfully");
+          this.getStatistics();
+        })
+        .catch(er => console.log(er.message));
+    },
+    setUserInf() {
+      this.$http
+        .post(
+          "/user_info/set/" + this.user.id,
+          {
+            english_score: this.user.englishScore,
+            experience_score: this.user.experienceScore,
+            technical_score: this.user.technicalScore,
+            enthusiasm_score: this.user.enthusiasmScore,
+            education_score: this.user.educationScore,
+            attitude_score: this.user.attitudeScore,
+            collaboration_score: this.user.collaborationScore,
+            position: this.user.position
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              token: localStorage.getItem("adminToken")
+            }
+          }
+        )
+        .then(res => {
+          jQuery("#editUserModal").modal("hide");
+          alert("user updated successfully");
+          this.getStatistics();
+          console.log(res.data);
+        })
+        .catch(er => console.log(er.message));
+    },
+    getId(id) {
+      this.user.id = id;
+    },
     getStatistics() {
       this.$http
         .get("/statistics", {
           headers: {
-            token: this.token
+            token: localStorage.getItem("adminToken")
           }
         })
         .then(res => {

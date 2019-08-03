@@ -23,23 +23,19 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>City</th>
-                <th>Title</th>
+                <th>Position</th>
+                <th>Action</th>
               </tr>
             </thead>
-            <tfoot>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>City</th>
-                <th>Title</th>
-              </tr>
-            </tfoot>
             <tbody>
               <tr v-for="(user, index) in users" :key="index">
-                <td>{{ user.first_name }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.city }}</td>
-                <td>{{ user.title }}</td>
+                <td>{{ user.user.first_name }}</td>
+                <td>{{ user.user.email }}</td>
+                <td>{{ user.user.city }}</td>
+                <td>{{ user.position }}</td>
+                <td>
+                  <button class="btn btn-danger" @click="deleteUser(user.user.id)">delete</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -62,20 +58,30 @@ export default {
     };
   },
   methods: {
+    deleteUser(id) {
+      this.$http
+        .delete("/user/delete/" + id, {
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.getItem("adminToken")
+          }
+        })
+        .then(res => {
+          alert("user deleted successfully");
+          this.getUsers();
+        })
+        .catch(er => console.log(er.message));
+    },
     getUsers() {
       this.$http
-        .get("/users", {
+        .get("/user_info", {
           headers: {
             token: this.token
           }
         })
         .then(res => {
           this.loaded = true;
-          this.users = res.data.filter(function(user) {
-            return user.verified == true;
-          });
-
-          console.log(this.users);
+          this.users = res.data;
         })
         .catch(er => console.log(er.message));
     }

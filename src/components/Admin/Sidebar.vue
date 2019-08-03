@@ -17,10 +17,10 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-      <a class="nav-link" href="/admin/">
+      <router-link class="nav-link" to="/admin/">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span>
-      </a>
+      </router-link>
     </li>
 
     <!-- Divider -->
@@ -28,18 +28,18 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-      <a class="nav-link" href="/admin/developers">
+      <router-link class="nav-link" to="/admin/developers">
         <i class="fas fa-list"></i>
         <span>All Developers</span>
-      </a>
+      </router-link>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-      <a class="nav-link" href="tables.html">
+      <router-link to="/admin/positions" class="nav-link">
         <i class="far fa-plus-square"></i>
-        <span>Add Technology</span>
-      </a>
+        <span>Positions</span>
+      </router-link>
     </li>
 
     <!-- Divider -->
