@@ -85,6 +85,7 @@
                   <div
                     class="tab-pane fade show active"
                     id="pills-home"
+                    ى
                     role="tabpanel"
                     aria-labelledby="pills-home-tab"
                   >
@@ -100,6 +101,7 @@
                             type="text"
                             placeholder="first name"
                             class="form-control border-input"
+                            v-model="user.first_name"
                           />
                           <small
                             v-if="errors.has('first name')"
@@ -112,18 +114,65 @@
                       </div>
                       <div class="col-md-8">
                         <p>{{ user.last_name }}</p>
+                        <div class="form-group">
+                          <input
+                            name="last name"
+                            type="text"
+                            placeholder="first name"
+                            class="form-control border-input"
+                            v-model="user.last_name"
+                          />
+                          <small
+                            v-if="errors.has('first name')"
+                            class="field-text is-danger"
+                          >{{ errors.first('last name') }}</small>
+                        </div>
                       </div>
                       <div class="col-md-4">
                         <label>Email</label>
                       </div>
                       <div class="col-md-8">
                         <p>{{ user.email }}</p>
+                        <div class="form-group">
+                          <input
+                            name="email"
+                            type="email"
+                            placeholder="email"
+                            class="form-control border-input"
+                            v-model="user.email"
+                          />
+                          <small
+                            v-if="errors.has('email')"
+                            class="field-text is-danger"
+                          >{{ errors.first('email') }}</small>
+                        </div>
                       </div>
                       <div class="col-md-4">
                         <label>Joined as</label>
                       </div>
                       <div class="col-md-8">
                         <p>{{ user.title }}</p>
+                        <div class="form-group">
+                          <label for="join-as">Join as</label>
+
+                          <select
+                            class="browser-default custom-select"
+                            v-model="user.title"
+                            v-validate="'required'"
+                            name="join as"
+                          >
+                            <option value>Select</option>
+                            <option value="Frontend">Frontend Developer</option>
+                            <option value="Backend">Backend Developer</option>
+                            <option value="Fullstack">Fullstack Developer</option>
+                            <option value="Mobile/App">Mobile/App Developer</option>
+                            <option value="AI/Blockchain">AI/Blockchain Developer</option>
+                          </select>
+                          <small
+                            v-if="errors.has('join as')"
+                            class="field-text is-danger"
+                          >{{ errors.first('join as') }}</small>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -259,8 +308,6 @@ export default {
   created() {
     this.checkCurrentLogin();
   },
-  updated() {
-    this.checkCurrentLogin();
-  }
+  updated() {}
 };
 </script>
