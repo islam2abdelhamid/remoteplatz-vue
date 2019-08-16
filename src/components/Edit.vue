@@ -1,0 +1,739 @@
+<template>
+  <div class="vld-parent">
+    <loading :active.sync="isLoading" :is-full-page="fullPage"></loading>
+
+    <div>
+      <Navbar />
+      <!-- end of header -->
+
+      <!-- DEVELOPERS BAR SECTION -->
+    </div>
+    <section id="register">
+      <div class="bar">
+        <div class="d-flex justify-content-around bar-steps">
+          <p>
+            <span class="checked-step" :class="{current:step==1, active:step>=1}">
+              <i class="fa fa-check"></i>
+            </span>Create your profile
+          </p>
+          <p>
+            <span class="checked-step" :class="{current:step==2, active:step>=2}">
+              <i class="fa fa-check"></i>
+            </span>Showcase your skills
+          </p>
+          <p>
+            <span class="checked-step" :class="{current:step==3, active:step>=3}">
+              <i class="fa fa-check"></i>
+            </span>Review and Submit
+          </p>
+        </div>
+        <!-- progress bar -->
+        <div class="progress-container" :style="{width:barWidth+'%'}"></div>
+      </div>
+      <div class="container">
+        <h2 class="text-center">Join our community as a Remote developer</h2>
+
+        <p
+          class="lead text-center"
+        >work remotely with top leading tech companies and get access to Swiss/German market</p>
+        <!-- Multi step form -->
+        <div class="reg-form card">
+          <h4 class="form-title" v-if="step === 1">Basic Information</h4>
+          <h4 class="form-title" v-if="step === 2">Showcase your skill set</h4>
+          <h4 class="form-title" v-if="step === 3">Review and Submit</h4>
+          <hr v-if="step < 3" />
+          <form enctype="multipart/form-data">
+            <div v-if="step === 1">
+              <div class="row">
+                <!-- first name -->
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <label for="fname">First Name</label>
+                    <input
+                      name="first name"
+                      type="text"
+                      required
+                      autofocus
+                      placeholder="first name"
+                      class="form-control border-input"
+                      v-model="user.first_name"
+                      v-validate="'required'"
+                    />
+                    <small
+                      v-if="errors.has('first name')"
+                      class="field-text is-danger"
+                    >{{ errors.first('first name') }}</small>
+                  </div>
+                </div>
+
+                <div class="col-md-5 offset-md-2">
+                  <div class="form-group">
+                    <label for="lname">Last Name</label>
+                    <input
+                      name="last name"
+                      type="text"
+                      required
+                      autofocus
+                      placeholder="last name"
+                      class="form-control border-input"
+                      v-model="user.last_name"
+                      v-validate="'required'"
+                    />
+                    <small
+                      v-if="errors.has('last name')"
+                      class="field-text is-danger"
+                    >{{ errors.first('last name') }}</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- email -->
+
+                <!-- end of col -->
+
+                <!-- join as -->
+                <div class="col-md-5 offset-md-2"></div>
+                <!-- end of col -->
+              </div>
+              <!-- end of row -->
+
+              <div class="row">
+                <!-- password -->
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                      type="password"
+                      class="form-control border-input"
+                      v-model="user.password"
+                      v-validate="'required'"
+                      name="password"
+                      ref="password"
+                    />
+                    <small
+                      v-if="errors.has('password')"
+                      class="field-text is-danger"
+                    >{{ errors.first('password') }}</small>
+                  </div>
+                </div>
+                <!-- end of col -->
+
+                <!-- password confirmation -->
+                <div class="col-md-5 offset-md-2">
+                  <div class="form-group">
+                    <label for="c_password">Confirm Password</label>
+                    <input
+                      type="password"
+                      class="form-control border-input"
+                      v-model="user.passwordConfirm"
+                      v-validate="'required|confirmed:password'"
+                      name="password confirmation"
+                    />
+                    <small
+                      v-if="errors.has('password confirmation')"
+                      class="field-text is-danger"
+                    >{{ errors.first('password confirmation') }}</small>
+                  </div>
+                </div>
+                <!-- end of col -->
+              </div>
+              <!-- end of row -->
+
+              <button
+                type="button"
+                class="btn next float-right btn-next"
+                id="next-step"
+                @click.prevent="next()"
+              >Next →</button>
+            </div>
+
+            <div v-if="step === 2">
+              <div class="form-group">
+                <label for="bio" class="form-qs">Tell us about yourself</label>
+                <p
+                  class="text-muted"
+                >Provide a summary about your past achievements, goals and ambitions. Tell us what makes you a perfect candidate for a remote job.</p>
+                <textarea
+                  name="bio"
+                  id="bio"
+                  cols="50"
+                  rows="10"
+                  class="form-control border-input"
+                  v-validate="'required'"
+                  v-model="user.bio"
+                ></textarea>
+                <small
+                  v-if="errors.has('bio')"
+                  class="field-text is-danger"
+                >{{ errors.first('bio') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-qs">What is your English Proficiency?</label>
+
+                <select
+                  required
+                  class="browser-default custom-select"
+                  name="english level"
+                  v-validate="'required'"
+                  v-model="user.english_level"
+                >
+                  <option value>Select</option>
+                  <option value="good">Fair</option>
+                  <option value="good">Good</option>
+                  <option value="very good">Very Good</option>
+                  <option value="fluent">Fluent</option>
+                </select>
+                <small
+                  v-if="errors.has('english level')"
+                  class="field-text is-danger"
+                >{{ errors.first('english level') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-qs">What is your academic qualifications?</label>
+
+                <select
+                  v-validate="'required'"
+                  class="browser-default custom-select"
+                  name="degree"
+                  id="academic-qul"
+                  v-model="user.academic_degree"
+                >
+                  <option value>Select</option>
+                  <option value="Bachelor’s">Bachelor’s Degree</option>
+                  <option value="Master’s">Master’s Degree</option>
+                  <option value="diploma">Diploma</option>
+                </select>
+                <small
+                  v-if="errors.has('degree')"
+                  class="field-text is-danger"
+                >{{ errors.first('degree') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label for="degree-details">Field of study</label>
+                <input
+                  v-validate="'required'"
+                  type="text"
+                  name="degree details"
+                  class="form-control border-input"
+                  id="degree-details"
+                  placeholder="e.g. Computer Engineering, ...etc"
+                  v-model="user.field_of_study"
+                />
+                <small
+                  v-if="errors.has('degree details')"
+                  class="field-text is-danger"
+                >{{ errors.first('degree details') }}</small>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="university">University/Institution</label>
+                  <input
+                    v-validate="'required'"
+                    type="text"
+                    name="university"
+                    class="form-control border-input"
+                    id="university"
+                    placeholder=" e.g. Cairo University,...etc"
+                    v-model="user.university"
+                  />
+                  <small
+                    v-if="errors.has('university')"
+                    class="field-text is-danger"
+                  >{{ errors.first('university') }}</small>
+                </div>
+                <div class="col-md-6">
+                  <label for="grad-year">Graduation year</label>
+                  <input
+                    v-validate="'required|numeric'"
+                    name="graduation year"
+                    class="form-control border-input"
+                    id="grad-year"
+                    required
+                    placeholder="e.g. 2017"
+                    v-model="user.graduation_year"
+                  />
+                  <small
+                    v-if="errors.has('graduation year')"
+                    class="field-text is-danger"
+                  >{{ errors.first('graduation year') }}</small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  for="years-of-exp"
+                  class="form-qs"
+                >how many years of experience do you have as developer</label>
+                <input
+                  v-validate="'required|numeric'"
+                  name="years of experience"
+                  class="form-control border-input"
+                  id="exp-years"
+                  required
+                  placeholder=" e.g. 4"
+                  v-model="user.years_experience"
+                />
+                <small
+                  v-if="errors.has('years of experience')"
+                  class="field-text is-danger"
+                >{{ errors.first('years of experience') }}</small>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label class="typo__label">skills</label>
+                  <multiselect
+                    v-validate="'required'"
+                    name="skills"
+                    v-model="value"
+                    placeholder="Search or add a tag"
+                    label="name"
+                    track-by="id"
+                    :options="options"
+                    :multiple="true"
+                    :taggable="true"
+                  ></multiselect>
+                </div>
+                <small
+                  v-if="errors.has('skills')"
+                  class="field-text is-danger"
+                >{{ errors.first('skills') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="projects"
+                  class="form-qs"
+                >List and explain the key projects you’ve worked on (Provide links if applicable)</label>
+                <textarea
+                  v-validate="'required'"
+                  name="previous projects"
+                  id="projects"
+                  cols="50"
+                  rows="10"
+                  class="form-control border-input"
+                  v-model="user.projects"
+                ></textarea>
+                <small
+                  v-if="errors.has('previous projects')"
+                  class="field-text is-danger"
+                >{{ errors.first('previous projects') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label for="github-link">Github Link</label>
+                <input
+                  v-validate="'required'"
+                  type="text"
+                  name="github link"
+                  class="form-control border-input"
+                  id="github-link"
+                  v-model="user.github"
+                  placeholder
+                />
+                <small
+                  v-if="errors.has('github link')"
+                  class="field-text is-danger"
+                >{{ errors.first('github link') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-qs">Have you ever worked remotely?</label>
+                <label>
+                  <input
+                    type="radio"
+                    name="worked_remotely"
+                    value="yes"
+                    v-model="user.worked_remotely"
+                  /> yes
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="worked_remotely"
+                    value="no"
+                    v-model="user.worked_remotely"
+                  />no
+                </label>
+              </div>
+
+              <br />
+              <div class="form-group">
+                <label for="address" class="form-qs">Address</label>
+                <input
+                  v-validate="'required'"
+                  type="text"
+                  name="address"
+                  class="form-control border-input"
+                  id="address"
+                  v-model="user.address"
+                />
+                <small
+                  v-if="errors.has('address')"
+                  class="field-text is-danger"
+                >{{ errors.first('address') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label for="city" class="form-qs">City</label>
+                <input
+                  v-validate="'required'"
+                  type="text"
+                  name="city"
+                  class="form-control border-input"
+                  id="city"
+                  v-model="user.city"
+                  placeholder=" e.g. Aswan"
+                />
+                <small
+                  v-if="errors.has('city')"
+                  class="field-text is-danger"
+                >{{ errors.first('city') }}</small>
+              </div>
+              <div class="form-group">
+                <label class="form-qs">When can you start?</label>
+                <select
+                  v-validate="'required'"
+                  class="browser-default custom-select border-input"
+                  name="when can you start"
+                  id="availability"
+                  v-model="user.start_date"
+                >
+                  <option value>Select</option>
+                  <option value="immediately">immediately</option>
+                  <option value="two weeks">two weeks</option>
+                  <option value="one month">one month</option>
+                  <option value="two month">two month</option>
+                  <option value="more">more</option>
+                </select>
+                <small
+                  v-if="errors.has('when can you start')"
+                  class="field-text is-danger"
+                >{{ errors.first('when can you start') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-qs">Prefered working space</label>
+                <select
+                  v-validate="'required'"
+                  class="browser-default custom-select border-input"
+                  name="when can you start"
+                  id="availability"
+                  v-model="user.prefered_working_place"
+                >
+                  <option value>Select</option>
+                  <option value="Smart Village">Smart Village</option>
+                  <option value="New Cairo">New Cairo</option>
+                  <option value="Helioples">Helioples</option>
+                  <option value="Downtown">Downtown</option>
+                </select>
+                <small
+                  v-if="errors.has('when can you start')"
+                  class="field-text is-danger"
+                >{{ errors.first('when can you start') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label for="phone" class="form-qs">Phone Number</label>
+                <input
+                  v-validate="'required|numeric'"
+                  type="text"
+                  name="phone"
+                  class="form-control border-input"
+                  id="phone"
+                  v-model="user.phone"
+                  placeholder="your phone number"
+                />
+                <small
+                  v-if="errors.has('phone')"
+                  class="field-text is-danger"
+                >{{ errors.first('phone') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label for="salary" class="form-qs">What is your expected salary?</label>
+                <input
+                  v-validate="'required|numeric'"
+                  name="salary"
+                  class="form-control border-input"
+                  id="salary"
+                  v-model="user.salary"
+                  placeholder=" e.g. 1000 EUR "
+                />
+                <small
+                  v-if="errors.has('salary')"
+                  class="field-text is-danger"
+                >{{ errors.first('salary') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label for="cv" class="form-qs">Upload your CV</label>
+                <div class="file-field">
+                  <input
+                    v-validate="'required'"
+                    type="file"
+                    name="cv"
+                    id="cv"
+                    @change="onFileSelected"
+                  />
+                </div>
+                <small v-if="errors.has('cv')" class="field-text is-danger">{{ errors.first('cv') }}</small>
+              </div>
+
+              <div class="form-group">
+                <label for="picture" class="form-qs">Upload a recent picture</label>
+                <div class="file-field">
+                  <input
+                    v-validate="'required'"
+                    type="file"
+                    name="photo"
+                    id="picture"
+                    @change="onImageSelected"
+                  />
+                </div>
+                <small
+                  v-if="errors.has('photo')"
+                  class="field-text is-danger"
+                >{{ errors.first('photo') }}</small>
+              </div>
+
+              <button
+                @click.prevent="prev()"
+                class="previous btn float-left btn-next"
+              >&larr; Previous</button>
+              <button
+                @click.prevent="next()"
+                class="btn next float-right btn-next"
+                id="next-step"
+              >Next &rarr;</button>
+            </div>
+
+            <div v-if="step === 3">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td id="t-name">{{ user.first_name }} {{ user.last_name }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td id="t-email">{{ user.email }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Join as</th>
+                    <td id="t-join-as">{{ user.title }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Bio</th>
+                    <td id="t-bio">{{ user.bio }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">programming languages</th>
+                    <td id="t-skills">
+                      <span v-for="(skill, index) in value" :key="index">{{ skill.name }}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">academic qualifications</th>
+                    <td id="t-degree">{{ user.academic_degree }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Degree Details</th>
+                    <td id="t-details">{{ user.field_of_study}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">University/Institution</th>
+                    <td id="t-university">{{ user.university}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Graduation year</th>
+                    <td id="t-grad-year">{{ user.graduation_year}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">years of professional experience</th>
+                    <td id="t-y-exp">{{ user.years_experience}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">projects you’ve worked on</th>
+                    <td id="t-projects">{{ user.projects}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">availability</th>
+                    <td id="t-availability">{{ user.university}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Where are you located</th>
+                    <td id="t-address">{{ user.address}} - {{ user.city}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">expected salary</th>
+                    <td id="t-salary">{{ user.salary}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Github Link</th>
+                    <td id="t-github">{{ user.github}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button
+                @click.prevent="prev()"
+                class="previous btn float-left btn-next"
+              >&larr; Previous</button>
+
+              <button @click.prevent="updateUser()" class="btn next float-right btn-next">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <Footer />
+  </div>
+</template>
+
+
+
+<script>
+// register globally
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
+
+export default {
+  name: "Edit",
+  components: {
+    Footer: Footer,
+    Navbar: Navbar,
+    Loading: Loading
+  },
+  data() {
+    return {
+      isLoading: false,
+      fullPage: true,
+      value: [],
+      options: [],
+      barWidth: 33,
+      barStyle: {
+        height: "2px",
+        backgroundColor: "#f48120",
+        transition: "0.5s"
+      },
+      uploadedFiles: {
+        photo: "",
+        cv: ""
+      },
+      step: 1,
+      user: ""
+    };
+  },
+  created() {
+    this.checkCurrentLogin();
+    this.getTech();
+    this.getAllTech();
+  },
+
+  methods: {
+    getAllTech() {
+      this.$http
+        .get("/technologies")
+        .then(res => {
+          this.options = res.data;
+          console.log(this.options);
+        })
+        .catch(err => console.log(err.message));
+    },
+    getTech() {
+      this.$http
+        .get("/user_technologies/user/" + this.user.id, {
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.token
+          }
+        })
+        .then(res => {
+          res.data.forEach(element => {
+            this.value.push(element.technology);
+          });
+          console.log(this.value);
+        })
+        .catch(err => console.log(err.message));
+    },
+    checkCurrentLogin() {
+      if (localStorage.token) {
+        this.user = JSON.parse(localStorage.getItem("currentUser"));
+        console.log("iser", this.user);
+      } else {
+        this.$router.replace(this.$route.query.redirect || "/login");
+      }
+    },
+
+    onFileSelected(event) {
+      let Cvfile = event.target.files[0];
+
+      let readerCV = new FileReader();
+      let vm = this;
+      readerCV.onloadend = function(Cvfile) {
+        vm.user.cv = readerCV.result;
+      };
+      readerCV.readAsDataURL(Cvfile);
+    },
+    onImageSelected(event) {
+      let photoFile = event.target.files[0];
+      let reader = new FileReader();
+      let vm = this;
+      reader.onloadend = function(photoFile) {
+        vm.user.photo = reader.result;
+      };
+      reader.readAsDataURL(photoFile);
+    },
+    prev() {
+      this.barWidth = this.barWidth - 33.3333;
+
+      this.step--;
+    },
+    updateUser() {
+      this.isLoading = true;
+      let skills2 = [];
+      this.value.forEach(element => {
+        skills2.push(element.name);
+      });
+      this.user.technologies = skills2;
+      console.log(this.user);
+
+      this.$http
+        .put("/user/update/" + this.user.id, this.user, {
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.token
+          }
+        })
+        .then(res => {
+          this.$router.replace(this.$route.query.redirect || "/updated");
+        })
+        .catch(err => console.log(err.message));
+    },
+
+    next() {
+      this.$validator.validate().then(result => {
+        if (result) {
+          jQuery([document.documentElement, document.body]).animate({
+            scrollTop: 20
+          });
+          this.barWidth = this.barWidth + 33.3333;
+          this.step++;
+          this.user.skills.forEach(skill => {});
+        } else {
+          jQuery([document.documentElement, document.body]).animate({
+            scrollTop: jQuery(".is-danger").offset().top - 200
+          });
+        }
+      });
+    }
+  }
+};
+</script>

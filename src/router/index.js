@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Home from '@/components/Admin/Home'
-import Developers from '@/components/Admin/Developers'
-import Positions from '@/components/Admin/Positions'
-import Login from '@/components/Admin/Login'
-import $ from 'jquery'
+import Home from '@/components/Home'
+import Community from '@/components/Community'
+import Faq from '@/components/Faq'
+import Login from '@/components/Login'
+import Register from '@/components/Register'
+import Thanks from '@/components/Thanks'
+import Profile from '@/components/Profile'
+import Edit from '@/components/Edit'
+import Updated from '@/components/Updated'
 
 Vue.use(Router)
 
@@ -13,29 +16,167 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/admin',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: {
+        title: 'Home Page',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
     },
     {
-      path: '/admin/developers',
-      name: 'Developers',
-      component: Developers
+      path: '/remote-community',
+      name: 'Community',
+      component: Community,
+      meta: {
+        title: 'Community Page',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
     },
     {
-      path: '/admin/positions',
-      name: 'Positions',
-      component: Positions
+      path: '/faq',
+      name: 'Faq',
+      component: Faq,
+      meta: {
+        title: 'Faq Page',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
     },
     {
-      path: '/admin/login',
+      path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {
+        title: 'Login Page',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
     },
+    {
+      path: '/edit',
+      name: 'Edit',
+      component: Edit,
+      meta: {
+        title: 'Update Profile',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register,
+      meta: {
+        title: 'Register Page',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/thanks',
+      name: 'Thanks',
+      component: Thanks,
+      meta: {
+        title: 'Thanks Page',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/updated',
+      name: 'Updated',
+      component: Updated,
+      meta: {
+        title: 'Updated Page',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
+      meta: {
+        title: 'Profile',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+
   ],
   mode: 'history',
 })

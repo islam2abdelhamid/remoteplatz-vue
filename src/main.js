@@ -4,7 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from './backend/vue-axios'
+import VeeValidate from 'vee-validate';
+import Multiselect from "vue-multiselect";
+import VueLoadingButton from 'vue-loading-button'
+Vue.component("multiselect", Multiselect);
 
+Vue.use(VeeValidate);
 
 Vue.config.productionTip = false
 
@@ -12,11 +17,13 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App,
+    VueLoadingButton,
+  },
   template: '<App/>'
 })
 
 import './../node_modules/jquery/dist/jquery.min.js';
 import './../node_modules/bootstrap/dist/js/bootstrap.min.js';
-import './../node_modules/bootstrap/dist/js/bootstrap.min.js';
-import './../node_modules/datatables.net/js/jquery.dataTables.min.js';
+import './../node_modules/owl.carousel/dist/owl.carousel.min.js';

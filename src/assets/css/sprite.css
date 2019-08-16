@@ -1,0 +1,223 @@
+.icon {
+    font-size: 10px;
+}
+
+.icon:before {
+    content:' ';
+    vertical-align:middle;
+    display: inline-block;
+    background-image: url("../svg/sprite.svg");
+    background-repeat: no-repeat;
+    background-size: 61.2em 985.2em;
+}
+
+
+
+  .icon.assistant:before {
+      background-position: 0em 0em;
+      width: 51.2em;
+      height: 51.2em;
+  }
+
+
+
+
+  .icon.checked:before {
+      background-position: 0em -51.2em;
+      width: 42.6667em;
+      height: 42.6667em;
+  }
+
+
+
+
+  .icon.community:before {
+      background-position: 0em -93.9em;
+      width: 12.2em;
+      height: 12.2em;
+  }
+
+
+
+
+  .icon.culture:before {
+      background-position: 0em -106.1em;
+      width: 49.6em;
+      height: 49.6em;
+  }
+
+
+
+
+  .icon.email:before {
+      background-position: 0em -155.7em;
+      width: 50.2073em;
+      height: 50.2073em;
+  }
+
+
+
+
+  .icon.employee:before {
+      background-position: 0em -206em;
+      width: 51.2em;
+      height: 51.2em;
+  }
+
+
+
+
+  .icon.facebook:before {
+      background-position: 0em -257.2em;
+      width: 61.2em;
+      height: 61.2em;
+  }
+
+
+
+
+  .icon.gift:before {
+      background-position: 0em -318.4em;
+      width: 28.0071em;
+      height: 28.0071em;
+  }
+
+
+
+
+  .icon.hiker:before {
+      background-position: 0em -346.5em;
+      width: 51.2em;
+      height: 51.2em;
+  }
+
+
+
+
+  .icon.instagram:before {
+      background-position: 0em -397.7em;
+      width: 31.4652em;
+      height: 31.4652em;
+  }
+
+
+
+
+  .icon.linkedin:before {
+      background-position: 0em -429.2em;
+      width: 51.2em;
+      height: 51.2em;
+  }
+
+
+
+
+  .icon.medical-insurance:before {
+      background-position: 0em -480.4em;
+      width: 51.1984em;
+      height: 51.1984em;
+  }
+
+
+
+
+  .icon.project-management:before {
+      background-position: 0em -531.6em;
+      width: 46.6104em;
+      height: 46.6em;
+  }
+
+
+
+
+  .icon.promotion:before {
+      background-position: 0em -578.2em;
+      width: 51.2em;
+      height: 51.2em;
+  }
+
+
+
+
+  .icon.quality-assurance:before {
+      background-position: 0em -629.4em;
+      width: 12.386199999999999em;
+      height: 12.2621em;
+  }
+
+
+
+
+  .icon.rising:before {
+      background-position: 0em -641.7em;
+      width: 51.1em;
+      height: 51.1em;
+  }
+
+
+
+
+  .icon.salary:before {
+      background-position: 0em -692.8em;
+      width: 51.2em;
+      height: 51.2em;
+  }
+
+
+
+
+  .icon.search:before {
+      background-position: 0em -744em;
+      width: 13.8em;
+      height: 13.8em;
+  }
+
+
+
+
+  .icon.skills:before {
+      background-position: 0em -757.8em;
+      width: 51.2em;
+      height: 51.2em;
+  }
+
+
+
+
+  .icon.slack:before {
+      background-position: 0em -809em;
+      width: 51.2005em;
+      height: 51.2005em;
+  }
+
+
+
+
+  .icon.team:before {
+      background-position: 0em -860.3em;
+      width: 51.2em;
+      height: 51.2em;
+  }
+
+
+
+
+  .icon.test:before {
+      background-position: 0em -911.5em;
+      width: 12.452em;
+      height: 12.4923em;
+  }
+
+
+
+
+  .icon.twitter:before {
+      background-position: 0em -924em;
+      width: 61.2em;
+      height: 61.2em;
+  }
+
+
+
+
+
