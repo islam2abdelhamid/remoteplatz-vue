@@ -585,6 +585,12 @@ th {
 #profile {
   margin-top: 80px;
 }
+#profile label {
+  font-weight: 500
+}
+#profile .row {
+  margin-top: 12px;
+}
 #profile .nav-pills .nav-link {
   color: #495057;
   background-color: #fff;

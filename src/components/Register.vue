@@ -188,6 +188,7 @@
                   class="text-muted"
                 >Provide a summary about your past achievements, goals and ambitions. Tell us what makes you a perfect candidate for a remote job.</p>
                 <textarea
+                  placeholder="e.g. Well, I’m currently a front end developer at Smith, where I handle our top performing client."
                   name="bio"
                   id="bio"
                   cols="50"
@@ -342,6 +343,7 @@
                   class="form-qs"
                 >List and explain the key projects you’ve worked on (Provide links if applicable)</label>
                 <textarea
+                  placeholder="e.g. I've worked on projects where a bunch of smart people sat in a room and decided what developers needed."
                   v-validate="'required'"
                   name="previous projects"
                   id="projects"
@@ -359,13 +361,13 @@
               <div class="form-group">
                 <label for="github-link">Github Link</label>
                 <input
+                  placeholder="e.g. github.com/username"
                   v-validate="'required'"
                   type="text"
                   name="github link"
                   class="form-control border-input"
                   id="github-link"
                   v-model="registration.github"
-                  placeholder
                 />
                 <small
                   v-if="errors.has('github link')"
@@ -397,6 +399,8 @@
               <div class="form-group">
                 <label for="address" class="form-qs">Address</label>
                 <input
+                  placeholder="e.g DieSachbearbeiter
+Choriner Straße 49"
                   v-validate="'required'"
                   type="text"
                   name="address"
@@ -487,14 +491,14 @@
               </div>
 
               <div class="form-group">
-                <label for="salary" class="form-qs">What is your expected salary?</label>
+                <label for="salary" class="form-qs">What is your expected salary? (in EUR)</label>
                 <input
                   v-validate="'required|numeric'"
                   name="salary"
                   class="form-control border-input"
                   id="salary"
                   v-model="registration.salary"
-                  placeholder=" e.g. 1000 EUR "
+                  placeholder=" e.g. 1000 "
                 />
                 <small
                   v-if="errors.has('salary')"
@@ -503,7 +507,10 @@
               </div>
 
               <div class="form-group">
-                <label for="cv" class="form-qs">Upload your CV</label>
+                <label for="cv" class="form-qs">
+                  Upload your CV
+                  <small>( PDF's files only )</small>
+                </label>
                 <div class="file-field">
                   <input
                     v-validate="'required|mimes:pdf'"
@@ -518,7 +525,10 @@
               </div>
 
               <div class="form-group">
-                <label for="picture" class="form-qs">Upload a recent picture</label>
+                <label for="picture" class="form-qs">
+                  Upload a recent picture
+                  <small>( .jpg, .jpeg, .jpe .jif, .jfif, .jfi )</small>
+                </label>
                 <div class="file-field">
                   <input
                     v-validate="'required|mimes:image/*'"
@@ -786,6 +796,10 @@ export default {
     next() {
       this.$validator.validate().then(result => {
         if (result) {
+          this.$http
+            .get("/user/check-email/" + this.registration.email)
+            .then(res => console.log(result));
+
           jQuery([document.documentElement, document.body]).animate({
             scrollTop: 20
           });

@@ -6,7 +6,7 @@
         <div class="alert" role="alert" style="padding:30px">
           <h4 class="alert-heading mt">
             <i class="fa fa-check" style="color:rgb(58, 164, 82)"></i>
-            Congratulations!
+            Success!
           </h4>
           <p>your profile has been successfully updated</p>
 

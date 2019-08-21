@@ -7,7 +7,7 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Thanks from '@/components/Thanks'
 import Profile from '@/components/Profile'
-import Edit from '@/components/Edit'
+import Settings from '@/components/Settings'
 import Updated from '@/components/Updated'
 
 Vue.use(Router)
@@ -87,11 +87,11 @@ export default new Router({
       }
     },
     {
-      path: '/edit',
-      name: 'Edit',
-      component: Edit,
+      path: '/settings',
+      name: 'Settings',
+      component: Settings,
       meta: {
-        title: 'Update Profile',
+        title: ' Settings',
         metaTags: [
           {
             name: 'description',

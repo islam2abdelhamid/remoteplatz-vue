@@ -7,6 +7,9 @@ import axios from './backend/vue-axios'
 import VeeValidate from 'vee-validate';
 import Multiselect from "vue-multiselect";
 import VueLoadingButton from 'vue-loading-button'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
+import 'sweetalert2/src/sweetalert2.scss'
 Vue.component("multiselect", Multiselect);
 
 Vue.use(VeeValidate);
