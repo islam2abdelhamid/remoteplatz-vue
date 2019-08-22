@@ -9,6 +9,7 @@ import Thanks from '@/components/Thanks'
 import Profile from '@/components/Profile'
 import Settings from '@/components/Settings'
 import Updated from '@/components/Updated'
+import imageCrop from '@/components/imageCrop'
 
 Vue.use(Router)
 
@@ -164,6 +165,24 @@ export default new Router({
       component: Profile,
       meta: {
         title: 'Profile',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/crop',
+      name: 'imageCrop',
+      component: imageCrop,
+      meta: {
+        title: 'imageCrop',
         metaTags: [
           {
             name: 'description',

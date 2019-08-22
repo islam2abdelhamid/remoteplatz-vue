@@ -5,17 +5,17 @@
     <section id="register">
       <div class="bar">
         <div class="d-flex justify-content-around bar-steps">
-          <p>
+          <p :class="{active_step:step==1}">
             <span class="checked-step" :class="{current:step==1, active:step>=1}">
               <i class="fa fa-check"></i>
             </span>Create your profile
           </p>
-          <p>
+          <p :class="{active_step:step==2}">
             <span class="checked-step" :class="{current:step==2, active:step>=2}">
               <i class="fa fa-check"></i>
             </span>Showcase your skills
           </p>
-          <p>
+          <p :class="{active_step:step==3}">
             <span class="checked-step" :class="{current:step==3, active:step>=3}">
               <i class="fa fa-check"></i>
             </span>Review and Submit
@@ -95,6 +95,7 @@
                       class="form-control border-input"
                       v-model="registration.email"
                     />
+                    <small class="field-text is-danger" v-if="notValid">The email is already exist.</small>
                     <small
                       v-if="errors.has('email')"
                       class="field-text is-danger"
@@ -658,6 +659,7 @@ export default {
   },
   data() {
     return {
+      notValid: false,
       isLoading: false,
       fullPage: true,
       value: [],
@@ -717,7 +719,6 @@ export default {
         .get("/technologies")
         .then(res => {
           this.options = res.data;
-          console.log(this.options);
         })
         .catch(err => console.log(err.message));
     },
@@ -755,7 +756,6 @@ export default {
         photo: this.registration.photo,
         cv: this.registration.cv
       };
-      console.log(this.formData.technologies);
 
       this.$http
         .post("/user/register", this.formData)
@@ -794,24 +794,27 @@ export default {
       this.step--;
     },
     next() {
-      this.$validator.validate().then(result => {
-        if (result) {
-          this.$http
-            .get("/user/check-email/" + this.registration.email)
-            .then(res => console.log(result));
-
-          jQuery([document.documentElement, document.body]).animate({
-            scrollTop: 20
+      this.$http
+        .get("/user/check-email/" + this.registration.email)
+        .then(res => {
+          this.notValid = true;
+        })
+        .catch(err => {
+          this.$validator.validate().then(result => {
+            if (result) {
+              jQuery([document.documentElement, document.body]).animate({
+                scrollTop: 20
+              });
+              this.barWidth = this.barWidth + 33.3333;
+              this.step++;
+              this.registration.skills.forEach(skill => {});
+            } else {
+              jQuery([document.documentElement, document.body]).animate({
+                scrollTop: jQuery(".is-danger").offset().top - 200
+              });
+            }
           });
-          this.barWidth = this.barWidth + 33.3333;
-          this.step++;
-          this.registration.skills.forEach(skill => {});
-        } else {
-          jQuery([document.documentElement, document.body]).animate({
-            scrollTop: jQuery(".is-danger").offset().top - 200
-          });
-        }
-      });
+        });
     },
     checkCurrentLogin() {
       if (localStorage.token) {

@@ -889,6 +889,9 @@ footer hr {
 }
 
 @media only screen and (max-width: 767px) {
+  #register .reg-form {
+    width: 100%;
+  }
   #header .header-text {
     margin-top: 100px;
   }
@@ -918,6 +921,9 @@ footer hr {
 }
 
 @media only screen and (max-width: 576px) {
+  table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
   footer .container {
     text-align: center;
   }
@@ -948,7 +954,7 @@ footer hr {
     display: none;
   }
 
-  .bar .d-flex p.active-step {
+  .bar .d-flex p.active_step {
     display: block;
   }
   .btn-next {

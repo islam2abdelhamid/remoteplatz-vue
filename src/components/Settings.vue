@@ -223,7 +223,6 @@ export default {
     checkCurrentLogin() {
       if (localStorage.token) {
         this.user = JSON.parse(localStorage.getItem("currentUser"));
-        console.log("iser", this.user);
       } else {
         this.$router.replace(this.$route.query.redirect || "/login");
       }

@@ -270,6 +270,35 @@ export default {
   data() {
     return {};
   },
-  created() {}
+  created() {},
+  mounted() {
+    $(".owl-carousel").owlCarousel({
+      loop: !0,
+      margin: 10,
+      autoplay: !0,
+      autoplayTimeout: 5000,
+      autoplayHoverPause: !0,
+      responsive: {
+        0: {
+          items: 1
+        },
+        320: {
+          items: 2
+        },
+        600: {
+          items: 3
+        },
+        768: {
+          items: 4
+        },
+        992: {
+          items: 5
+        },
+        1201: {
+          items: 6
+        }
+      }
+    });
+  }
 };
 </script>
