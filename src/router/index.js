@@ -9,7 +9,6 @@ import Thanks from '@/components/Thanks'
 import Profile from '@/components/Profile'
 import Settings from '@/components/Settings'
 import Updated from '@/components/Updated'
-import imageCrop from '@/components/imageCrop'
 
 Vue.use(Router)
 
@@ -38,7 +37,7 @@ export default new Router({
       name: 'Community',
       component: Community,
       meta: {
-        title: 'Community Page',
+        title: 'Remoteplatz - Community',
         metaTags: [
           {
             name: 'description',
@@ -56,7 +55,7 @@ export default new Router({
       name: 'Faq',
       component: Faq,
       meta: {
-        title: 'Faq Page',
+        title: 'Remoteplatz - FAQ',
         metaTags: [
           {
             name: 'description',
@@ -74,7 +73,7 @@ export default new Router({
       name: 'Login',
       component: Login,
       meta: {
-        title: 'Login Page',
+        title: 'Remoteplatz - Login',
         metaTags: [
           {
             name: 'description',
@@ -92,7 +91,7 @@ export default new Router({
       name: 'Settings',
       component: Settings,
       meta: {
-        title: ' Settings',
+        title: 'Remoteplatz - Settings',
         metaTags: [
           {
             name: 'description',
@@ -110,7 +109,7 @@ export default new Router({
       name: 'Register',
       component: Register,
       meta: {
-        title: 'Register Page',
+        title: 'Join Remoteplatz Community',
         metaTags: [
           {
             name: 'description',
@@ -128,7 +127,7 @@ export default new Router({
       name: 'Thanks',
       component: Thanks,
       meta: {
-        title: 'Thanks Page',
+        title: 'Remoteplatz - Thanks Page',
         metaTags: [
           {
             name: 'description',
@@ -164,7 +163,7 @@ export default new Router({
       name: 'Profile',
       component: Profile,
       meta: {
-        title: 'Profile',
+        title: 'Remoteplatz - Profile',
         metaTags: [
           {
             name: 'description',
@@ -177,24 +176,7 @@ export default new Router({
         ]
       }
     },
-    {
-      path: '/crop',
-      name: 'imageCrop',
-      component: imageCrop,
-      meta: {
-        title: 'imageCrop',
-        metaTags: [
-          {
-            name: 'description',
-            content: ''
-          },
-          {
-            property: 'og:description',
-            content: ''
-          }
-        ]
-      }
-    },
+
 
   ],
   mode: 'history',

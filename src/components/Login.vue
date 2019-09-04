@@ -44,8 +44,8 @@
             <div class="text-center">
               <button type="submit" class="btn btn-next center-block">Login</button>
             </div>
-            <a href="#" class="text-center d-block mt-3 text-black-50">Forgot Password?</a>
-            <a href="#" class="text-center d-block mt-2 text-black-50">Create Account</a>
+            <!-- <a href="#" class="text-center d-block mt-3 text-black-50">Forgot Password?</a> -->
+            <a href="/register" class="text-center d-block mt-2 text-black-50">Create Account</a>
           </form>
         </div>
       </div>

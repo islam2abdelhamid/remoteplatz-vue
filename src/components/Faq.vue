@@ -23,7 +23,7 @@
                                 <div id="collapseTwo1" class="collapse" role="tabpanel" aria-labelledby="headingTwo1"
                                     data-parent="#accordionEx1">
                                     <div class="card-body">
-                                            Remoteplatz presents the modern solution to finding the right talent. We connect developers in Egypt with European businesses through remote job opportunities. We have built a vibrant community of like minded developers who strive for excellence in their professional life and whose professionalism and commitment match their exceptional technical skills. Our community of remote developers is currently located in Cairo (Downtown, New Cairo, and Smart Village). 
+                                         Remoteplatz is the largest community of remote developers. We connect European business with hand-picked qualified developers from Egypt through remote job opportunities. Our aim is to break the boundaries of traditional recruitment by empowering talented and motivated developers in Egypt to work remotely with European tech experts, gain international experience, and awesome community advantages. 
 
                                     </div>
                                 </div>
@@ -43,7 +43,8 @@
                                 <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21"
                                     data-parent="#accordionEx1">
                                     <div class="card-body">
-                                            Currently, our community has a wide range of software specializations; Frontend, Backend, Blockchain, machine learning, data science and mobile developers. 
+                                           Currently, our community has a wide range of software specializations; Frontend, Backend, Blockchain, machine learning, data science and mobile developers. 
+ 
                                     </div>
                                 </div>
                             </div>
@@ -62,33 +63,14 @@
                                 <div id="collapseThree31" class="collapse" role="tabpanel" aria-labelledby="headingThree31"
                                     data-parent="#accordionEx1">
                                     <div class="card-body">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium sequi atque eligendi mollitia sunt autem provident, dolor rem iusto, optio nesciunt reprehenderit cupiditate excepturi commodi, iste repudiandae ullam suscipit! Pariatur!
+                                           
+                                    Computer science degrees or equivalent experience is the most important qualification companies look for. English communication skills are a must, and a proven record of expertise related to the job description. 
+
                                     </div>
                                 </div>
 
                             </div>
-                            <!-- Accordion card -->
-                                <!-- Accordion card -->
-                                <div class="card">
-                                    <!-- Card header -->
-                                    <div class="card-header" role="tab" id="headingThree311">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1"
-                                            href="#collapseThree311" aria-expanded="false" aria-controls="collapseThree311">
-                                            Are English skills required for all remote jobs? 
-                                        </a>
-                                    </div>
-                                    <!-- Card body -->
-                                    <div id="collapseThree311" class="collapse" role="tabpanel" aria-labelledby="headingThree311"
-                                        data-parent="#accordionEx1">
-                                        <div class="card-body">
-                                                Yes. Your communication with your remote colleagues and supervisors will be in English. You’re required to have an excellent degree of English communication skills in order to pass our initial screening process. 
-                                                PS. Knowledge of German language is good to have but not required.
-                                                
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- Accordion card -->
+                          
 
                         </div>
                         <!-- Accordion wrapper -->
@@ -102,14 +84,15 @@
                                             <h4 class="faq-title">Creating a profile on Remoteplatz </h4>
                                             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx2"
                                                 href="#collapseFour1" aria-expanded="false" aria-controls="collapseFour1">
-                                                What is the benefit of creating a profile on Remoteplatz?  
+                                              Why should I create a profile on Remoteplatz?   
                                             </a>
                                         </div>
                                         <!-- Card body -->
                                         <div id="collapseFour1" class="collapse" role="tabpanel" aria-labelledby="headingFour1"
                                             data-parent="#accordionEx2">
                                             <div class="card-body">
-                                                Creating a profile on Remoteplatz will allow you to showcase your skill set, past achievements and current aspirations. Potential employers who are looking for talents like yours might be interested in hiring you.   
+                                             Creating a profile on Remoteplatz will allow you to showcase your skill set, achievements and career aspirations. Potential employers who are looking for talents like yours might be interested in hiring you.  
+ 
                                             </div>
                                         </div>
                                     </div>
@@ -121,14 +104,15 @@
                                         <div class="card-header" role="tab" id="headingTwo2">
                                             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx2"
                                                 href="#collapseFour41" aria-expanded="false" aria-controls="collapseFour41">
-                                                How long would it take to get my profile featured on the platform? 
+                                             How long would it take to get my profile featured on the platform? 
                                             </a>
                                         </div>
                                         <!-- Card body -->
                                         <div id="collapseFour41" class="collapse" role="tabpanel" aria-labelledby="headingFour41"
                                             data-parent="#accordionEx2">
                                             <div class="card-body">
-                                                Our team will review all the profiles we receive. It usually takes 3 business days before it goes live.  
+                                               Our team will review all the profiles we receive. It usually takes 3 business days before you receive an email about the next steps. 
+
                                             </div>
                                         </div>
                                     </div>
@@ -149,6 +133,7 @@
                                             <div class="card-body">
                                                     Yes, you can always edit your profile. Log in with your username and click on “Edit Profile” in the upper right side. 
 
+
                                             </div>
                                         </div>
             
@@ -161,14 +146,60 @@
                                             <div class="card-header" role="tab" id="headingFive511">
                                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx2"
                                                     href="#collapseFive511" aria-expanded="false" aria-controls="collapseFive511">
-                                                    How to make my profile stand out? 
+                                                   What information should I include in my personal summary?  
                                                 </a>
                                             </div>
                                             <!-- Card body -->
                                             <div id="collapseFive511" class="collapse" role="tabpanel" aria-labelledby="headingFive511"
                                                 data-parent="#accordionEx2">
                                                 <div class="card-body">
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, ea. Voluptatem eos odit rerum officiis laboriosam! Nobis, nulla? Natus delectus dolor nisi libero dolores? Dolor quam repudiandae dolorum quisquam distinctio?
+                                                 Your personal summary is your chance to highlight your most significant achievements, and the skills that make you a qualified developer. Of course you can always reach out to us if you need help. 
+
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                                        <!-- Accordion card -->
+                                    <!-- Accordion card -->
+                                    <div class="card">
+                                            <!-- Card header -->
+                                            <div class="card-header" role="tab" id="headingFive511">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx2"
+                                                    href="#collapseFive512" aria-expanded="false" aria-controls="collapseFive512">
+                                                  What skills should I include? 
+
+                                                </a>
+                                            </div>
+                                            <!-- Card body -->
+                                            <div id="collapseFive512" class="collapse" role="tabpanel" aria-labelledby="headingFive512"
+                                                data-parent="#accordionEx2">
+                                                <div class="card-body">
+                                             
+                                                    Ideally, you should list all the technical skills, programming languages, and frameworks you are experienced with. You should only add technologies that you have more than 1 year of experience in it. 
+
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                                        <!-- Accordion card -->
+                                    <!-- Accordion card -->
+                                    <div class="card">
+                                            <!-- Card header -->
+                                            <div class="card-header" role="tab" id="headingFive511">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx2"
+                                                    href="#collapseFive513" aria-expanded="false" aria-controls="collapseFive513">
+                                                 I’m a fresh graduate/currently a student, can I still join Remoteplatz? 
+
+                                                </a>
+                                            </div>
+                                            <!-- Card body -->
+                                            <div id="collapseFive513" class="collapse" role="tabpanel" aria-labelledby="headingFive513"
+                                                data-parent="#accordionEx2">
+                                                <div class="card-body">
+                                             
+                                               Yes. If you pass our initial assessments and interviews, you can join Remoteplatz. We will consider your profile if we have an opportunity that matches your skills. 
+
+
                                                 </div>
                                             </div>
                 
@@ -189,15 +220,15 @@
             
                                             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx3"
                                                 href="#collapseSix1" aria-expanded="false" aria-controls="collapseSix1">
-                                                How many interviews does the candidate go through? 
+                                              What does a verified developer mean? 
                                             </a>
                                         </div>
                                         <!-- Card body -->
                                         <div id="collapseSix1" class="collapse" role="tabpanel" aria-labelledby="headingFour1"
                                             data-parent="#accordionEx3">
                                             <div class="card-body">
-                                                    Candidates who pass the technical assessment will go through 3 rounds of interviews; the first two interviews are conducted by our staffing managers. The purpose of these two interviews is to evaluate your English communication skills, test your passion and enthusiasm for the job and self motivation. 
-                                                    If you passed them, we’ll schedule another interview the company where you’ll be introduced to your direct supervisor. 
+                                                 A verified developer is typically an official member of Remoteplatz community whose profile has been verified and featured on the platform so that potential employers can view it. 
+In order to get verified, you need to pass our technical assessment and initial interviews held by our talent acquisition manager. 
 
                                             </div>
                                         </div>
@@ -210,14 +241,37 @@
                                         <div class="card-header" role="tab" id="headingTwo2">
                                             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx3"
                                                 href="#collapseSix61" aria-expanded="false" aria-controls="collapseSix61">
-                                                What are some tips to ace the 3 rounds of interviews? 
+                                               How many interviews does the developer go through to get verified? 
+
                                             </a>
                                         </div>
                                         <!-- Card body -->
                                         <div id="collapseSix61" class="collapse" role="tabpanel" aria-labelledby="headingSix61"
                                             data-parent="#accordionEx3">
                                             <div class="card-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel ex animi fuga nisi eius ipsum nam. Alias obcaecati quaerat facilis voluptates reprehenderit, ipsa consectetur atque totam fugit maiores consequatur dolorem.
+                                              Developers go through 2 rounds of interviews which are conducted by our talent acquisition manager. The purpose of these interviews is to evaluate your English communication skills, test your passion and enthusiasm for the job and self motivation. After that, we will send a simple technical challenge which you have to solve. 
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Accordion card -->
+            
+                                    <!-- Accordion card -->
+                                    <div class="card">
+                                        <!-- Card header -->
+                                        <div class="card-header" role="tab" id="headingTwo2">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx3"
+                                                href="#collapseSix62" aria-expanded="false" aria-controls="collapseSix62">
+                                              Is it possible to conduct online interviews?
+                                            </a>
+                                        </div>
+                                        <!-- Card body -->
+                                        <div id="collapseSix62" class="collapse" role="tabpanel" aria-labelledby="headingSix62"
+                                            data-parent="#accordionEx3">
+                                            <div class="card-body">
+                                              Most of our interviews are conducted through Google meet, Skype or phone. 
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -235,14 +289,14 @@
                 
                                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx4"
                                                     href="#collapseEight1" aria-expanded="false" aria-controls="collapseEight1">
-                                                    Where are the co-working spaces located?  
+                                                    Where are the co-working spaces located? 
                                                 </a>
                                             </div>
                                             <!-- Card body -->
                                             <div id="collapseEight1" class="collapse" role="tabpanel" aria-labelledby="headingFour1"
                                                 data-parent="#accordionEx4">
                                                 <div class="card-body">
-                                                    Currently, our developers have the option to work either from; Smart Village, Heliopolis, or New Cairo. 
+                                                  Currently, our developers have the option to work either from; Smart Village, Down town, or New Cairo. 
                                                 </div>
                                             </div>
                                         </div>
@@ -254,41 +308,22 @@
                                             <div class="card-header" role="tab" id="headingTwo2">
                                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx4"
                                                     href="#collapseEight81" aria-expanded="false" aria-controls="collapseEight81">
-                                                    What if I want to work entirely remotely (from home)?
+                                                   What is your remote work policy?
                                                 </a>
                                             </div>
                                             <!-- Card body -->
                                             <div id="collapseEight81" class="collapse" role="tabpanel" aria-labelledby="headingEight81"
                                                 data-parent="#accordionEx4">
                                                 <div class="card-body">
-                                                    For the first 3 months (probation period) you have to work from one of our co-working spaces which are located in: Heliopolis, Smart Village, and New Cairo. After that, you’ll have the privilege to work entirely remotely 50% of the month. Meaning that, you can choose where you want to work according to your location preferences. 
+                      
+                                                    Our remote work policy enables you to work from anywhere up to 3 days per week. We trust that you will get the work done as long as you’re connected to the internet. 
+
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Accordion card -->
                 
-                                        <!-- Accordion card -->
-                                        <div class="card">
-                                            <!-- Card header -->
-                                            <div class="card-header" role="tab" id="headingNine91">
-                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx4"
-                                                    href="#collapseNine91" aria-expanded="false" aria-controls="collapseNine91">
-                                                    Are English skills required for all remote jobs? 
-                                                </a>
-                                            </div>
-                                            <!-- Card body -->
-                                            <div id="collapseNine91" class="collapse" role="tabpanel" aria-labelledby="headingNine91"
-                                                data-parent="#accordionEx4">
-                                                <div class="card-body">
-                                                        Yes. Your communication with your remote colleagues and supervisors will be in English. You’re required to have an excellent degree of English communication skills in order to pass our initial screening process. 
-                                                        PS. Knowledge of German language is good to have but not required. 
-                                                        
-                                                </div>
-                                            </div>
-                
-                                        </div>
-                                        <!-- Accordion card -->
-                
+                                  
                                     </div>
                                     <!-- Accordion wrapper -->
                     </div>

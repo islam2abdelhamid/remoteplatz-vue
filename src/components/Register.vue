@@ -96,6 +96,7 @@
                       v-model="registration.email"
                     />
                     <small class="field-text is-danger" v-if="notValid">The email is already exist.</small>
+                    <small class="field-text is-danger" v-if="!emailValid">this email is not valid.</small>
                     <small
                       v-if="errors.has('email')"
                       class="field-text is-danger"
@@ -215,7 +216,7 @@
                   v-model="registration.englishLevel"
                 >
                   <option value>Select</option>
-                  <option value="good">Fair</option>
+                  <option value="fair">Fair</option>
                   <option value="good">Good</option>
                   <option value="very good">Very Good</option>
                   <option value="fluent">Fluent</option>
@@ -458,7 +459,7 @@ Choriner Straße 49"
                 <select
                   v-validate="'required'"
                   class="browser-default custom-select border-input"
-                  name="when can you start"
+                  name="prefered workspace"
                   id="availability"
                   v-model="registration.preferedWorkingSpace"
                 >
@@ -469,9 +470,9 @@ Choriner Straße 49"
                   <option value="Downtown">Downtown</option>
                 </select>
                 <small
-                  v-if="errors.has('when can you start')"
+                  v-if="errors.has('prefered workspace')"
                   class="field-text is-danger"
-                >{{ errors.first('when can you start') }}</small>
+                >{{ errors.first('prefered workspace') }}</small>
               </div>
 
               <div class="form-group">
@@ -510,11 +511,11 @@ Choriner Straße 49"
               <div class="form-group">
                 <label for="cv" class="form-qs">
                   Upload your CV
-                  <small>( PDF's files only )</small>
+                  <small>( PDF's files only | max size: 2000 kb )</small>
                 </label>
                 <div class="file-field">
                   <input
-                    v-validate="'required|mimes:pdf'"
+                    v-validate="'required|mimes:pdf|size:2000'"
                     data-vv-as="pdf"
                     type="file"
                     name="cv"
@@ -528,22 +529,58 @@ Choriner Straße 49"
               <div class="form-group">
                 <label for="picture" class="form-qs">
                   Upload a recent picture
-                  <small>( .jpg, .jpeg, .jpe .jif, .jfif, .jfi )</small>
+                  <small>( .jpg, .jpeg, .png | max size: 2000 kb )</small>
                 </label>
                 <div class="file-field">
                   <input
-                    v-validate="'required|mimes:image/*'"
+                    v-validate="'required|mimes:image/*|size:2000'"
                     data-vv-as="image"
                     type="file"
                     name="photo"
                     id="picture"
-                    @change="onImageSelected"
+                    @change="setImage"
                   />
                 </div>
                 <small
                   v-if="errors.has('photo')"
                   class="field-text is-danger"
                 >{{ errors.first('photo') }}</small>
+
+                <div v-if="!errors.first('photo')">
+                  <vue-cropper
+                    v-if="!cropped"
+                    ref="cropper"
+                    :guides="true"
+                    :view-mode="2"
+                    drag-mode="crop"
+                    :auto-crop-area="0.5"
+                    :min-container-width="250"
+                    :min-container-height="180"
+                    :maxWidth="600"
+                    :maxHeight="800"
+                    :background="true"
+                    :rotatable="true"
+                    :src="imgSrc"
+                    :aspectRatio="8/9"
+                    alt="Source Image"
+                    :img-style="{ 'width': '400px', 'height': '300px' }"
+                  ></vue-cropper>
+                  <small v-if="imageError" class="field-text is-danger">please crop your image</small>
+                  <img
+                    class="img-thumbnail"
+                    :src="cropImg"
+                    v-if="cropped"
+                    style="max-width: 200px;"
+                  />
+
+                  <button
+                    v-if="imgSrc != '' && !cropped"
+                    type="button"
+                    class="btn btn-dark mt-2"
+                    @click="cropImage()"
+                    style="margin-right: 40px;"
+                  >Crop</button>
+                </div>
               </div>
 
               <button
@@ -577,13 +614,13 @@ Choriner Straße 49"
                     <td id="t-bio">{{ registration.bio }}</td>
                   </tr>
                   <tr>
-                    <th scope="row">programming languages</th>
+                    <th scope="row">Programming Languages</th>
                     <td id="t-skills">
                       <span v-for="(skill, index) in value" :key="index">{{ skill.name }}</span>
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">academic qualifications</th>
+                    <th scope="row">Academic Qualifications</th>
                     <td id="t-degree">{{ registration.academicQualification }}</td>
                   </tr>
                   <tr>
@@ -595,27 +632,27 @@ Choriner Straße 49"
                     <td id="t-university">{{ registration.university}}</td>
                   </tr>
                   <tr>
-                    <th scope="row">Graduation year</th>
+                    <th scope="row">Graduation Year</th>
                     <td id="t-grad-year">{{ registration.graduationYear}}</td>
                   </tr>
                   <tr>
-                    <th scope="row">years of professional experience</th>
+                    <th scope="row">years of Professional Experience</th>
                     <td id="t-y-exp">{{ registration.yearsOfExp}}</td>
                   </tr>
                   <tr>
-                    <th scope="row">projects you’ve worked on</th>
+                    <th scope="row">Projects you’ve Worked on</th>
                     <td id="t-projects">{{ registration.projects}}</td>
                   </tr>
                   <tr>
-                    <th scope="row">availability</th>
-                    <td id="t-availability">{{ registration.university}}</td>
+                    <th scope="row">Availability</th>
+                    <td id="t-availability">{{ registration.availability}}</td>
                   </tr>
                   <tr>
                     <th scope="row">Where are you located</th>
                     <td id="t-address">{{ registration.address}} - {{ registration.city}}</td>
                   </tr>
                   <tr>
-                    <th scope="row">expected salary</th>
+                    <th scope="row">Expected Salary</th>
                     <td id="t-salary">{{ registration.salary}}</td>
                   </tr>
                   <tr>
@@ -645,7 +682,8 @@ Choriner Straße 49"
 // register globally
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
+import VueCropper from "vue-cropperjs";
+import "cropperjs/dist/cropper.css";
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
@@ -655,10 +693,16 @@ export default {
   components: {
     Navbar: Navbar,
     Footer: Footer,
-    Loading: Loading
+    Loading: Loading,
+    VueCropper
   },
   data() {
     return {
+      emailValid: true,
+      imageError: false,
+      cropped: false,
+      imgSrc: "",
+      cropImg: "",
       notValid: false,
       isLoading: false,
       fullPage: true,
@@ -714,6 +758,35 @@ export default {
     this.checkCurrentLogin();
   },
   methods: {
+    setImage(e) {
+      this.imageError = true;
+      this.imgSrc = "";
+      this.cropped = false;
+      const file = e.target.files[0];
+      if (!file.type.includes("image/")) {
+        alert("Please select an image file");
+        return;
+      }
+      if (typeof FileReader === "function") {
+        const reader = new FileReader();
+        reader.onload = event => {
+          this.imgSrc = event.target.result;
+          // rebuild cropperjs with the updated source
+          this.$refs.cropper.replace(event.target.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert("Sorry, FileReader API not supported");
+      }
+    },
+    cropImage() {
+      // get image data for post processing, e.g. upload or setting image src
+      this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
+      this.cropped = true;
+      this.imageError = false;
+      this.registration.photo = this.cropImg;
+    },
+
     getTech() {
       this.$http
         .get("/technologies")
@@ -750,6 +823,7 @@ export default {
         github_link: this.registration.github,
         start_date: this.registration.availability,
         address: this.registration.address,
+        worked_remotly: this.registration.workedRemotely,
         city: this.registration.city,
         expected_salary: this.registration.salary,
         prefered_working_place: this.registration.preferedWorkingSpace,
@@ -764,8 +838,8 @@ export default {
         })
         .catch(err => {
           console.log(err.message);
-          alert("error");
           this.isLoading = false;
+          console.log(err.response.data);
         });
     },
 
@@ -779,42 +853,60 @@ export default {
       };
       readerCV.readAsDataURL(Cvfile);
     },
-    onImageSelected(event) {
-      let photoFile = event.target.files[0];
-      let reader = new FileReader();
-      let vm = this;
-      reader.onloadend = function(photoFile) {
-        vm.registration.photo = reader.result;
-      };
-      reader.readAsDataURL(photoFile);
-    },
+
     prev() {
       this.barWidth = this.barWidth - 33.3333;
 
       this.step--;
     },
     next() {
-      this.$http
-        .get("/user/check-email/" + this.registration.email)
-        .then(res => {
-          this.notValid = true;
-        })
-        .catch(err => {
-          this.$validator.validate().then(result => {
-            if (result) {
+      if (this.step === 1) {
+        this.isLoading = true;
+
+        this.$http
+          .get("/user/check-email/" + this.registration.email)
+          .then(res => {
+            this.notValid = true;
+            this.isLoading = false;
+          })
+          .catch(err => {
+            this.isLoading = true;
+            this.isLoading = false;
+
+            this.$validator.validate().then(result => {
+              if (result) {
+                jQuery([document.documentElement, document.body]).animate({
+                  scrollTop: 20
+                });
+                this.barWidth = this.barWidth + 33.3333;
+                this.step++;
+                this.registration.skills.forEach(skill => {});
+              } else {
+                jQuery([document.documentElement, document.body]).animate({
+                  scrollTop: jQuery(".is-danger").offset().top - 200
+                });
+              }
+            });
+          });
+      } else {
+        this.$validator.validate().then(result => {
+          if (result) {
+            if (this.imgSrc === "") {
+              this.imageError = true;
+            } else if (!this.imageError) {
               jQuery([document.documentElement, document.body]).animate({
                 scrollTop: 20
               });
               this.barWidth = this.barWidth + 33.3333;
               this.step++;
-              this.registration.skills.forEach(skill => {});
-            } else {
-              jQuery([document.documentElement, document.body]).animate({
-                scrollTop: jQuery(".is-danger").offset().top - 200
-              });
             }
-          });
+          } else {
+            jQuery([document.documentElement, document.body]).animate({
+              scrollTop: jQuery(".is-danger").offset().top - 200
+            });
+          }
         });
+      }
     },
     checkCurrentLogin() {
       if (localStorage.token) {

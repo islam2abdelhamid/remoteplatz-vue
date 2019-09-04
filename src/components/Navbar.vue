@@ -3,7 +3,7 @@
     <section id="header">
       <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/">
             <img src="../assets/images/logo-black.png" alt="Remote Platz Logo" width="127" />
           </a>
           <button

@@ -61,18 +61,12 @@
                   <i class="fa fa-twitter"></i>
                 </div>
               </a>
-              <a
-                href="https://www.linkedin.com/company/Remoteplatz/?viewAsMember=true"
-                target="_blank"
-              >
+              <a href="https://www.linkedin.com/company/remoteplatz/" target="_blank">
                 <div class="icon social in">
                   <i class="fa fa-linkedin"></i>
                 </div>
               </a>
-              <a
-                href="https://www.instagram.com/Remoteplatz/?target_user_id=12757571545&ndid=586ef4f0396b9G24bc2fd36357d9G586ef9899998bG34b&utm_medium=email&utm_campaign=ig_recap_digest&__bp=1"
-                target="_blank"
-              >
+              <a href="https://www.instagram.com/Remoteplatz" target="_blank">
                 <div class="icon social in">
                   <i class="fa fa-instagram"></i>
                 </div>

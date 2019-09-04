@@ -475,6 +475,12 @@ th {
   padding-top: 20px;
   width: 100%;
 }
+#developers-bar .header-title {
+  text-transform: uppercase;
+  line-height: 58px;
+  font-size: 46px;
+  letter-spacing: 3px;
+}
 
 #developers-bar .developers-grid {
   margin: 20px 20px;
@@ -583,7 +589,7 @@ th {
 
 /* PROFILE */
 #profile {
-  margin-top: 80px;
+  margin-top: 60px;
 }
 #profile label {
   font-weight: 500
@@ -616,8 +622,8 @@ th {
   text-align: center;
 }
 #profile .profile-img img {
-  width: 70%;
-  height: 100%;
+  /* width: 70%;
+  height: 100%; */
 }
 #profile .profile-img .file {
   position: relative;
@@ -675,6 +681,31 @@ th {
   padding: 14%;
   margin-top: -15%;
 }
+.profile-box {
+  position: relative;
+  cursor: pointer;
+}
+.profile-box img {
+  max-width: 250px;
+  height: auto;
+}
+.profile-box .layer {
+  background-color: #000000b3;
+  height: 50px;
+  position: absolute;
+  z-index: 555555;
+  bottom: 0;
+  width: 100%;
+  max-width: 250px;
+  left: 50%;
+   margin-left: -125px; /* Half the height */
+  bottom: 0;
+}
+
+.profile-box:hover .layer {
+ display: block !important
+}
+
 #profile .profile-work p {
   font-size: 12px;
   color: #818182;
@@ -991,4 +1022,42 @@ footer hr {
 
 
 
+
+
+.thanks .social {
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+.thanks .link {
+	height: 50px;
+	width: 50px;
+	border: 0;
+	cursor: pointer;
+	font-size: 30px;
+	line-height: 50px;
+	transition: ease-in-out .3s;
+	border-radius: 50px;
+	margin-left: 15px;
+}
+
+.thanks .twitter {
+	color: #4099FF;
+}
+
+.thanks .facebook {
+	color: #3B5998;
+}
+.thanks .linkedin {
+	color: #007bb6;
+}
+
+.thanks .instagram {
+	color: #5C3D2E;
+}
+
+.thanks .github {
+	color: #4183C4;
+}
 

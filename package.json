@@ -22,6 +22,7 @@
     "vue": "^2.5.2",
     "vue-avatar-cropper": "^1.0.5",
     "vue-axios": "^2.1.4",
+    "vue-cropperjs": "^4.0.0",
     "vue-loading-button": "^0.2.0",
     "vue-loading-overlay": "^3.2.0",
     "vue-multiselect": "^2.1.6",

@@ -5,7 +5,7 @@
       <div class="overly">
         <div class="container">
           <h2
-            class="header-title title-orange-line text-center mt-3 mb-3"
+            class="header-title title-orange-line text-center mt-3 mb-5"
           >A global community of remote developers and innovators</h2>
           <div class="developers-grid">
             <div class="owl-carousel owl-one">
@@ -18,10 +18,7 @@
                       class="img-fluid"
                     />
                     <h6 class="card-title text-center orange-text mt-2 mb-0">Nada S.</h6>
-                    <p class="card-text text-black-50 text-center">
-                      Software developer at
-                      <span>Tante E</span>
-                    </p>
+                    <p class="card-text text-black-50 text-center">Software Developer</p>
                   </div>
                   <!-- end of card body -->
                 </div>
@@ -38,10 +35,7 @@
                       class="img-fluid"
                     />
                     <h6 class="card-title text-center orange-text mt-2 mb-0">Antoine R.</h6>
-                    <p class="card-text text-black-50 text-center">
-                      Full Stack developer at
-                      <span>Impargo</span>
-                    </p>
+                    <p class="card-text text-black-50 text-center">Full Stack Developer</p>
                   </div>
                   <!-- end of card body -->
                 </div>
@@ -58,10 +52,7 @@
                       class="img-fluid"
                     />
                     <h6 class="card-title text-center orange-text mt-2 mb-0">Ahmed E.</h6>
-                    <p class="card-text text-black-50 text-center">
-                      Full Stack developer at
-                      <span>Pfleglisoft</span>
-                    </p>
+                    <p class="card-text text-black-50 text-center">Full Stack Developer</p>
                   </div>
                   <!-- end of card body -->
                 </div>
@@ -78,10 +69,7 @@
                       class="img-fluid"
                     />
                     <h6 class="card-title text-center orange-text mt-2 mb-0">Mostafa A.</h6>
-                    <p class="card-text text-black-50 text-center">
-                      Backend Engineer at
-                      <span>BetterHomes</span>
-                    </p>
+                    <p class="card-text text-black-50 text-center">Backend Engineer</p>
                   </div>
                   <!-- end of card body -->
                 </div>
@@ -98,10 +86,7 @@
                       class="img-fluid"
                     />
                     <h6 class="card-title text-center orange-text mt-2 mb-0">Mohamed E.</h6>
-                    <p class="card-text text-black-50 text-center">
-                      Frontend Engineer at
-                      <span>Malindo</span>
-                    </p>
+                    <p class="card-text text-black-50 text-center">Frontend Engineer</p>
                   </div>
                   <!-- end of card body -->
                 </div>
@@ -118,10 +103,7 @@
                       class="img-fluid"
                     />
                     <h6 class="card-title text-center orange-text mt-2 mb-0">Beshoy A.</h6>
-                    <p class="card-text text-black-50 text-center">
-                      Wordpress Developer at
-                      <span>Fineline</span>
-                    </p>
+                    <p class="card-text text-black-50 text-center">Wordpress Developer</p>
                   </div>
                   <!-- end of card body -->
                 </div>
@@ -133,7 +115,7 @@
           </div>
           <!-- end of developers grid -->
           <div class="text mt-5">
-            <a href="https://remoteplatz.com/register" class="cta border-cta">Join Now</a>
+            <a href="/register" class="cta border-cta" v-if="!logged">Join Now</a>
           </div>
         </div>
       </div>
@@ -216,7 +198,7 @@
             class="qoute"
           >Working remotely is an incredibly rewarding experience, especially when you know how to communicate effectively and prioritize your tasks to meet deadlines. Working remotely as a frontend engineer taught me a lot about system architecture, design patterns, testing and refactoring.</p>
           <div class="mt-4">
-            <a href="https://remoteplatz.com/register" class="cta">Join Now</a>
+            <a href="/register" v-if="!logged" class="cta">Join Now</a>
           </div>
         </div>
       </div>
@@ -229,7 +211,7 @@
             class="qoute"
           >The fact that im working remotely with experienced developers is helping me develop many skills particularly when it comes to solving some of the bugs that we face everyday. Working remotely is extremely beneficial for developers as it gets them exposed to different markets and cultures.</p>
           <div class="mt-4">
-            <a href="https://remoteplatz.com/register" class="cta">Join Now</a>
+            <a href="/register" v-if="!logged" class="cta">Join Now</a>
           </div>
         </div>
         <div class="story-img">
@@ -241,14 +223,14 @@
     <!-- BLOG SECTION -->
 
     <!-- JOIN AS A DEVELOPER SECTION -->
-    <section id="join">
+    <section id="join" v-if="!logged">
       <div class="overly">
         <div class="container mt-5">
           <div class="text">
             <h2 class="title-orange-line">Create a profile and start showcasing your skills</h2>
           </div>
           <div class="text">
-            <a href="https://remoteplatz.com/register" class="cta">Join Now</a>
+            <a href="/register" v-if="!logged" class="cta">Join Now</a>
           </div>
         </div>
       </div>
@@ -268,7 +250,9 @@ export default {
     Footer: Footer
   },
   data() {
-    return {};
+    return {
+      logged: false
+    };
   },
   created() {},
   mounted() {
@@ -299,6 +283,12 @@ export default {
         }
       }
     });
+
+    if (localStorage.getItem("currentUser")) {
+      this.logged = true;
+    }
   }
 };
 </script>
+
+

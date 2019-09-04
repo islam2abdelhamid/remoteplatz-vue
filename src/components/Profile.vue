@@ -9,7 +9,19 @@
           <div class="row">
             <div class="col-md-4">
               <div class="profile-img">
-                <img :src="user.photo" alt />
+                <div class="profile-box" @click="updateImage">
+                  <img :src="user.photo" />
+                  <div class="layer" :class="edit==true? 'd-block': 'd-none'">
+                    <input
+                      type="file"
+                      class="d-none"
+                      name="photo"
+                      id="pic"
+                      @change="onImageSelected"
+                    />
+                    <i class="fa fa-camera text-white mt-3"></i>
+                  </div>
+                </div>
               </div>
               <div class="profile-work">
                 <div class="align-items-baseline justify-content-md-between mt-3">
@@ -23,11 +35,15 @@
                       v-for="(technology, index) in  user.technologies"
                       :key="index"
                     >
-                      {{ technology.name }}
-                      <small class="text-muted">{{ technology.experience }}</small>
-                      <small class="text-muted" v-if="technology.experience>1">years</small>
-                      <small class="text-muted" v-else>year</small>
-                      <br />
+                      <div v-if="index<8">
+                        <div v-if="technology.experience>0">
+                          <span>{{ technology.name }}</span>
+                          <small class="text-muted">{{ technology.experience }}</small>
+                          <small class="text-muted" v-if="technology.experience>1">years</small>
+                          <small class="text-muted" v-else>year</small>
+                          <br />
+                        </div>
+                      </div>
                     </span>
                     <br />
                   </div>
@@ -54,10 +70,7 @@
                 HI
                 <span class="orange-text">{{ user.first_name }}</span>
               </h2>
-              <p class="text-black-50 lead">
-                {{ user.title }}
-                <span>Developer</span>
-              </p>
+              <p class="text-black-50 lead">{{ user.position }}</p>
               <div class="profile-head">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                   <li class="nav-item">
@@ -405,7 +418,7 @@
                         <label for="github-link">Github Link</label>
                       </div>
                       <div class="col-md-8">
-                        <a v-if="!edit" :href="user.github_link">Github Link</a>
+                        <a v-if="!edit" :href="user.github_link" target="_blank">Github Link</a>
                         <input
                           v-if="edit"
                           v-validate="'required'"
@@ -413,7 +426,7 @@
                           name="github link"
                           class="form-control border-input"
                           id="github-link"
-                          v-model="user.github"
+                          v-model="user.github_link"
                           placeholder
                         />
                         <small
@@ -429,23 +442,23 @@
                       </div>
                       <div class="col-md-8">
                         <div v-if="!edit">
-                          <p v-if="user.worked_remotely">Yes</p>
+                          <p v-if="user.worked_remotly=='yes'">Yes</p>
                           <p v-else>No</p>
                         </div>
                         <label v-if="edit">
                           <input
                             type="radio"
                             name="worked_remotely"
-                            value="1"
-                            v-model="user.worked_remotely"
+                            value="yes"
+                            v-model="user.worked_remotly"
                           /> yes
                         </label>
                         <label v-if="edit">
                           <input
                             type="radio"
                             name="worked_remotely"
-                            value="0"
-                            v-model="user.worked_remotely"
+                            value="no"
+                            v-model="user.worked_remotly"
                           />no
                         </label>
                       </div>
@@ -611,8 +624,22 @@
                         >{{ errors.first('cv') }}</small>
                       </div>
                     </div>
+                    <div class="row" v-if="!edit">
+                      <div class="col-md-4">
+                        <label for="cv" class="form-qs">CV</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="file-field">
+                          <a :href="user.cv" target="_blank" rel="noopener noreferrer">CV</a>
+                        </div>
+                        <small
+                          v-if="errors.has('cv')"
+                          class="field-text is-danger"
+                        >{{ errors.first('cv') }}</small>
+                      </div>
+                    </div>
 
-                    <div class="row" v-if="edit">
+                    <!-- <div class="row" v-if="edit">
                       <div class="col-md-4">
                         <label for="picture" class="form-qs">Upload a recent picture</label>
                       </div>
@@ -625,7 +652,7 @@
                           class="field-text is-danger"
                         >{{ errors.first('photo') }}</small>
                       </div>
-                    </div>
+                    </div>-->
                   </div>
 
                   <div
@@ -673,7 +700,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-
+import VueCropper from "vue-cropperjs";
+import "cropperjs/dist/cropper.css";
 export default {
   name: "Profile",
   components: {
@@ -702,8 +730,6 @@ export default {
             skills2.push(element.name);
           });
 
-          console.log(this.user.technologies);
-          console.log(this.user);
           this.$http
             .put("/user/update/" + this.user.id, this.user, {
               headers: {
@@ -712,8 +738,11 @@ export default {
               }
             })
             .then(res => {
-              this.afterUpdate();
-              console.log(this.user);
+              // this.afterUpdate();
+              localStorage.setItem("currentUser", JSON.stringify(this.user));
+
+              this.isLoading = false;
+              this.edit = false;
             })
             .catch(err => console.log(err.message));
         } else {
@@ -730,6 +759,7 @@ export default {
       if (localStorage.token) {
         if (localStorage.getItem("currentUser")) {
           this.user = JSON.parse(localStorage.getItem("currentUser"));
+          console.log(this.user);
         }
       } else {
         this.$router.replace(this.$route.query.redirect || "/login");
@@ -775,9 +805,14 @@ export default {
         vm.user.photo = reader.result;
       };
       reader.readAsDataURL(photoFile);
+    },
+    updateImage() {
+      $("#pic").trigger("click");
+      this.edit = true;
     }
   },
-  created() {
+  mounted() {
+    document.title = this.user.first_name + " " + this.user.last_name;
     this.checkCurrentLogin();
     this.getAllTech();
   },

@@ -6,7 +6,7 @@
       <div class="overly">
         <nav class="navbar navbar-expand-lg">
           <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
               <img src=".././assets/images/logo-black.png" alt="Remote Platz Logo" width="127" />
             </a>
             <button
@@ -89,7 +89,7 @@
           <p
             class="header-footer-text mt-3"
           >Build up your career with leading high tech businesses in Europe</p>
-          <a href="https://remoteplatz.com/register" class="cta mt-4">Get Started</a>
+          <a href="/register" class="cta mt-4" v-if="!logged">Get Started</a>
         </div>
       </div>
     </section>
@@ -308,7 +308,7 @@
                 />
                 <span>
                   <strong>- Ahmed M.</strong>
-                  <br />Full Stack developer at Impargo
+                  <br />Full Stack Developer
                 </span>
               </div>
               <div class="member-bio">
@@ -323,7 +323,7 @@
                 <img src=".././assets/images/profiles/ahmed_said.jpg" alt="profile image" />
                 <span>
                   <strong>- Ahmed S.</strong>
-                  <br />Ruby on Rails developer at Malindo
+                  <br />Ruby on Rails Developer
                 </span>
               </div>
               <div class="member-bio">
@@ -338,7 +338,7 @@
                 <img src=".././assets/images/profiles/mohamed_taha.jpg" alt="profile image" />
                 <span>
                   <strong>- Mohamed T.</strong>
-                  <br />Lead Full Stack Developer at Pfleglisoft
+                  <br />Lead Full Stack Developer
                 </span>
               </div>
               <div class="member-bio">

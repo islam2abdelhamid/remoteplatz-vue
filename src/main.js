@@ -15,6 +15,9 @@ import Multiselect from "vue-multiselect";
 import VueLoadingButton from 'vue-loading-button'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import VueCropper from 'vue-cropperjs';
+import 'cropperjs/dist/cropper.css';
+Vue.component(VueCropper);
 Vue.component("multiselect", Multiselect);
 
 

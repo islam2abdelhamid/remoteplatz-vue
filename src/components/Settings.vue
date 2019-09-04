@@ -104,9 +104,11 @@
                     aria-labelledby="pills-profile-tab"
                   >
                     <div class="row">
-                      <p
-                        class="text-center"
-                      >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi, dolore? Tempore sapiente blanditiis placeat hic provident, culpa ex soluta, impedit ratione ducimus ipsum deserunt laudantium vitae amet similique aspernatur animi.</p>
+                      <p class="text-left">
+                        <strong>Are you sure you want to delete your account?</strong>
+                        <br />Deleting your account means that you’re permanently leaving Remoteplatz community and all your data will be lost.
+                        <br />If you changed your mind in the future you would have to start the process from the beginning. To delete, click the delete button.
+                      </p>
                       <button class="btn btn-danger m-auto" @click="deleteAccount()">Delete Account</button>
                     </div>
                   </div>
