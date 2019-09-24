@@ -199,6 +199,7 @@
                   v-validate="'required'"
                   v-model="registration.bio"
                 ></textarea>
+
                 <small
                   v-if="errors.has('bio')"
                   class="field-text is-danger"
@@ -344,16 +345,17 @@
                   for="projects"
                   class="form-qs"
                 >List and explain the key projects you’ve worked on (Provide links if applicable)</label>
-                <textarea
+                <ckeditor
+                  :editor="editor"
                   placeholder="e.g. I've worked on projects where a bunch of smart people sat in a room and decided what developers needed."
                   v-validate="'required'"
                   name="previous projects"
                   id="projects"
                   cols="50"
                   rows="10"
-                  class="form-control border-input"
                   v-model="registration.projects"
-                ></textarea>
+                  :config="editorConfig"
+                ></ckeditor>
                 <small
                   v-if="errors.has('previous projects')"
                   class="field-text is-danger"
@@ -383,7 +385,7 @@
                   <input
                     type="radio"
                     name="worked_remotely"
-                    value="yes"
+                    value="true"
                     v-model="registration.workedRemotely"
                   /> yes
                 </label>
@@ -391,7 +393,7 @@
                   <input
                     type="radio"
                     name="worked_remotely"
-                    value="no"
+                    value="false"
                     v-model="registration.workedRemotely"
                   />no
                 </label>
@@ -515,7 +517,7 @@ Choriner Straße 49"
                 </label>
                 <div class="file-field">
                   <input
-                    v-validate="'required|mimes:pdf|size:2000'"
+                    v-validate="'required|mimes:pdf|'"
                     data-vv-as="pdf"
                     type="file"
                     name="cv"
@@ -641,7 +643,7 @@ Choriner Straße 49"
                   </tr>
                   <tr>
                     <th scope="row">Projects you’ve Worked on</th>
-                    <td id="t-projects">{{ registration.projects}}</td>
+                    <td id="t-projects" v-html="registration.projects"></td>
                   </tr>
                   <tr>
                     <th scope="row">Availability</th>
@@ -685,9 +687,10 @@ import Footer from "@/components/Footer";
 import VueCropper from "vue-cropperjs";
 import "cropperjs/dist/cropper.css";
 import Loading from "vue-loading-overlay";
-// Import stylesheet
-import "vue-loading-overlay/dist/vue-loading.css";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
+import "vue-loading-overlay/dist/vue-loading.css";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 export default {
   name: "Register",
   components: {
@@ -698,6 +701,19 @@ export default {
   },
   data() {
     return {
+      editor: ClassicEditor,
+      editorData: "",
+      editorConfig: {
+        toolbar: [
+          "heading",
+          "bold",
+          "italic",
+          "bulletedList",
+          "numberedList",
+          "|",
+          "link"
+        ]
+      },
       emailValid: true,
       imageError: false,
       cropped: false,
@@ -751,7 +767,6 @@ export default {
   },
   created() {
     this.checkCurrentLogin();
-    this.getTech();
     this.getTech();
   },
   updated() {
@@ -832,14 +847,32 @@ export default {
       };
 
       this.$http
-        .post("/user/register", this.formData)
+        .post("/user/register", this.formData, { timeout: 1000000 })
         .then(res => {
           this.$router.replace(this.$route.query.redirect || "/thanks");
         })
         .catch(err => {
           console.log(err.message);
           this.isLoading = false;
-          console.log(err.response.data);
+
+          var result = [];
+
+          for (var i in err.response.data)
+            result.push([i, err.response.data[i]]);
+
+          var t = [];
+
+          result.forEach(element => {
+            t.push(
+              `<span class='text-danger' style='font-size: 14px;'>${element}</span><br>`
+            );
+          });
+
+          Swal.fire({
+            type: "error",
+            title: "Oops...",
+            html: t.toString()
+          });
         });
     },
 
@@ -870,7 +903,6 @@ export default {
             this.isLoading = false;
           })
           .catch(err => {
-            this.isLoading = true;
             this.isLoading = false;
 
             this.$validator.validate().then(result => {
@@ -912,6 +944,33 @@ export default {
       if (localStorage.token) {
         this.$router.replace(this.$route.query.redirect || "/profile");
       }
+    },
+    syntaxHighlight(json) {
+      if (typeof json != "string") {
+        json = JSON.stringify(json, undefined, 2);
+      }
+      json = json
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+      return json.replace(
+        /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+        function(match) {
+          var cls = "number";
+          if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+              cls = "key";
+            } else {
+              cls = "string";
+            }
+          } else if (/true|false/.test(match)) {
+            cls = "boolean";
+          } else if (/null/.test(match)) {
+            cls = "null";
+          }
+          return '<span class="' + cls + '">' + match + "</span>";
+        }
+      );
     }
   }
 };

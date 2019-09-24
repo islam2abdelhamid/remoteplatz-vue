@@ -44,7 +44,10 @@
             <div class="text-center">
               <button type="submit" class="btn btn-next center-block">Login</button>
             </div>
-            <!-- <a href="#" class="text-center d-block mt-3 text-black-50">Forgot Password?</a> -->
+            <a
+              href="/forgot_password"
+              class="text-center d-block mt-3 text-black-50"
+            >Forgot Password?</a>
             <a href="/register" class="text-center d-block mt-2 text-black-50">Create Account</a>
           </form>
         </div>
@@ -94,10 +97,18 @@ export default {
         this.loginFailed();
         return;
       }
-      localStorage.token = req.data.token;
-      localStorage.setItem("currentUser", JSON.stringify(req.data.user));
-      this.error = false;
-      this.$router.replace(this.$route.query.redirect || "/profile");
+
+      if (req.data.user.verified) {
+        localStorage.token = req.data.token;
+        localStorage.setItem("currentUser", JSON.stringify(req.data.user));
+        this.error = false;
+        this.$router.replace(this.$route.query.redirect || "/profile");
+      } else {
+        localStorage.token = req.data.token;
+        localStorage.setItem("currentUser", JSON.stringify(req.data.user));
+        this.error = false;
+        this.$router.replace(this.$route.query.redirect || "/pending");
+      }
     },
     loginFailed() {
       this.error = "Login failed!";

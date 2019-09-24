@@ -759,7 +759,10 @@ export default {
       if (localStorage.token) {
         if (localStorage.getItem("currentUser")) {
           this.user = JSON.parse(localStorage.getItem("currentUser"));
-          console.log(this.user);
+          if (!this.user.verified) {
+            this.$router.replace(this.$route.query.redirect || "/pending");
+          }
+          document.title = this.user.first_name + " " + this.user.last_name;
         }
       } else {
         this.$router.replace(this.$route.query.redirect || "/login");
@@ -812,7 +815,6 @@ export default {
     }
   },
   mounted() {
-    document.title = this.user.first_name + " " + this.user.last_name;
     this.checkCurrentLogin();
     this.getAllTech();
   },

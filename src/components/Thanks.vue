@@ -2,17 +2,14 @@
   <div>
     <Navbar />
     <div class="container">
-      <div class="text-center" style="margin-top:150px;margin-bottom:20px;">
+      <div class="text-center" style="margin-top:100px;margin-bottom:20px;">
         <div class="alert" role="alert" style="padding:30px">
           <h4 class="alert-heading mt">
             <i class="fa fa-check" style="color:rgb(58, 164, 82)"></i> Thank you for completing your profile.
           </h4>
-          <p>
-            Our team will review it within the next 3 days and will
-            notify you via email/phone to verify your profile.
-            <br />Feel free to follow us on social media for remote work tips, experience and sharing the
-            community spirit.
-          </p>
+          <p>In order to verify your profile, you need to book a video interview with our talent acquisition specialist via Google meet!</p>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/maged-2/15min"></div>
+
           <div class="thanks">
             <div class="social">
               <a class="facebook link" href="https://www.facebook.com/Remoteplatz/" target="_blank">
@@ -37,6 +34,15 @@
               </a>
             </div>
           </div>
+          <p>
+            Feel free to follow us on social media for remote work tips,
+            <br />experience and sharing the
+            community spirit.
+          </p>
+          <!-- Calendly inline widget begin -->
+
+          <!-- Calendly inline widget end -->
+
           <p class="mb-0"></p>
         </div>
       </div>
@@ -58,9 +64,28 @@ export default {
     return {};
   },
   created() {
+    let recaptchaScript = document.createElement("script");
+    recaptchaScript.setAttribute(
+      "src",
+      "https://assets.calendly.com/assets/external/widget.js"
+    );
+    document.head.appendChild(recaptchaScript);
     jQuery([document.documentElement, document.body]).animate({
       scrollTop: 20
     });
   }
 };
 </script>
+
+
+
+<style  scoped>
+.calendly-inline-widget {
+  height: 620px;
+}
+@media screen and (max-width: 340px) {
+  .calendly-inline-widget {
+    height: 800px;
+  }
+}
+</style>

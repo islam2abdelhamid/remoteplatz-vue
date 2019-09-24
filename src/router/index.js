@@ -9,6 +9,8 @@ import Thanks from '@/components/Thanks'
 import Profile from '@/components/Profile'
 import Settings from '@/components/Settings'
 import Updated from '@/components/Updated'
+import ForgotPassword from '@/components/ForgotPassword'
+import Pending from '@/components/Pending'
 
 Vue.use(Router)
 
@@ -164,6 +166,42 @@ export default new Router({
       component: Profile,
       meta: {
         title: 'Remoteplatz - Profile',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/forgot_password',
+      name: 'ForgotPassword',
+      component: ForgotPassword,
+      meta: {
+        title: 'Remoteplatz - Forgot Password',
+        metaTags: [
+          {
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/pending',
+      name: 'Pending',
+      component: Pending,
+      meta: {
+        title: 'Remoteplatz - your profile will be verified soon !',
         metaTags: [
           {
             name: 'description',

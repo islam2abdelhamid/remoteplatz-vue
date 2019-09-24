@@ -225,6 +225,9 @@ export default {
     checkCurrentLogin() {
       if (localStorage.token) {
         this.user = JSON.parse(localStorage.getItem("currentUser"));
+        if (!this.user.verified) {
+          this.$router.replace(this.$route.query.redirect || "/pending");
+        }
       } else {
         this.$router.replace(this.$route.query.redirect || "/login");
       }

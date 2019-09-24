@@ -9,7 +9,8 @@ import axios from './backend/vue-axios'
 import jQuery from 'jquery'
 window.$ = window.jQuery = require('jquery')
 
-
+import CKEditor from '@ckeditor/ckeditor5-vue';
+Vue.use(CKEditor);
 import VeeValidate from 'vee-validate';
 import Multiselect from "vue-multiselect";
 import VueLoadingButton from 'vue-loading-button'

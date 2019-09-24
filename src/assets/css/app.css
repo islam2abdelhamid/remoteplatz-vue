@@ -116,6 +116,13 @@ margin-top: 13px;
   text-align: left;
 }
 
+@media only screen and (max-width: 1200px) {
+  #header .navbar .navbar-nav li {
+    margin-right: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+}
 @media only screen and (min-width: 991px) {
   #header .navbar .navbar-nav li.login {
     margin-right: 5px;
