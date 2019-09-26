@@ -228,7 +228,7 @@
                           v-model="user.english_level"
                         >
                           <option value>Select</option>
-                          <option value="good">Fair</option>
+                          <option value="fair">Fair</option>
                           <option value="good">Good</option>
                           <option value="very good">Very Good</option>
                           <option value="fluent">Fluent</option>
@@ -395,17 +395,20 @@
                         <label for="projects" class="form-qs">List of projects you’ve worked on</label>
                       </div>
                       <div class="col-md-8">
-                        <p v-if="!edit">{{ user.projects }}</p>
-                        <textarea
-                          v-if="edit"
-                          v-validate="'required'"
-                          name="previous projects"
-                          id="projects"
-                          cols="50"
-                          rows="10"
-                          class="form-control border-input"
-                          v-model="user.projects"
-                        ></textarea>
+                        <p v-html="user.projects" v-if="!edit"></p>
+                          <ckeditor
+                            v-if="edit"
+                            :editor="editor"
+                            placeholder="e.g. I've worked on projects where a bunch of smart people sat in a room and decided what developers needed."
+                            v-validate="'required'"
+                            name="previous projects"
+                            id="projects"
+                            cols="50"
+                            rows="10"
+                            v-model="user.projects"
+                            :config="editorConfig"
+                          ></ckeditor>
+                   
                         <small
                           v-if="errors.has('previous projects')"
                           class="field-text is-danger"
@@ -442,14 +445,14 @@
                       </div>
                       <div class="col-md-8">
                         <div v-if="!edit">
-                          <p v-if="user.worked_remotly=='yes'">Yes</p>
+                          <p v-if="user.worked_remotly">Yes</p>
                           <p v-else>No</p>
                         </div>
                         <label v-if="edit">
                           <input
                             type="radio"
                             name="worked_remotely"
-                            value="yes"
+                            value="true"
                             v-model="user.worked_remotly"
                           /> yes
                         </label>
@@ -457,10 +460,33 @@
                           <input
                             type="radio"
                             name="worked_remotely"
-                            value="no"
+                            value="false"
                             v-model="user.worked_remotly"
                           />no
                         </label>
+                      </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label for="address" class="form-qs">Age</label>
+                      </div>
+                      <div class="col-md-8">
+                        <p v-if="!edit">{{ user.age }}</p>
+                        <input
+                          v-if="edit"
+                          v-validate="'required'"
+                          type="number"
+                          name="age"
+                          class="form-control border-input"
+                          id="age"
+                          v-model="user.age"
+                        />
+                        <small
+                          v-if="errors.has('age')"
+                          class="field-text is-danger"
+                        >{{ errors.first('age') }}</small>
                       </div>
                     </div>
 
@@ -702,6 +728,8 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import VueCropper from "vue-cropperjs";
 import "cropperjs/dist/cropper.css";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 export default {
   name: "Profile",
   components: {
@@ -711,6 +739,19 @@ export default {
   },
   data() {
     return {
+       editor: ClassicEditor,
+      editorData: "",
+      editorConfig: {
+        toolbar: [
+          "heading",
+          "bold",
+          "italic",
+          "bulletedList",
+          "numberedList",
+          "|",
+          "link"
+        ]
+      },
       isLoading: false,
       fullPage: true,
       user: {},

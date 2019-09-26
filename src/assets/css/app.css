@@ -2,6 +2,10 @@
 /* main-color-dark: #e7700b */
 /* Global */
 
+.form-control:disabled, .form-control[readonly] {
+  background-color: #fff;
+}
+
 body {
   font-family: "Montserrat", sans-serif;
 }

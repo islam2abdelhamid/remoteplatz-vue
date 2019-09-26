@@ -401,6 +401,16 @@
 
               <br />
               <div class="form-group">
+                <label for="date" class="form-qs">Your age</label>
+
+                <input type="number"  placeholder="e.g 22" min="16" class="form-control border-input" v-validate="'required'" name="age" v-model="registration.birthDate">
+                <small
+                  v-if="errors.has('age')"
+                  class="field-text is-danger"
+                >{{ errors.first('age') }}</small>
+              </div>
+              <br />
+              <div class="form-group">
                 <label for="address" class="form-qs">Address</label>
                 <input
                   placeholder="e.g DieSachbearbeiter
@@ -688,6 +698,7 @@ import VueCropper from "vue-cropperjs";
 import "cropperjs/dist/cropper.css";
 import Loading from "vue-loading-overlay";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import Datepicker from "vuejs-datepicker";
 
 import "vue-loading-overlay/dist/vue-loading.css";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -697,7 +708,8 @@ export default {
     Navbar: Navbar,
     Footer: Footer,
     Loading: Loading,
-    VueCropper
+    VueCropper,
+    Datepicker
   },
   data() {
     return {
@@ -761,7 +773,8 @@ export default {
         salary: "",
         cv: "",
         photo: "",
-        preferedWorkingSpace: ""
+        preferedWorkingSpace: "",
+        birthDate:""
       }
     };
   },
@@ -843,7 +856,8 @@ export default {
         expected_salary: this.registration.salary,
         prefered_working_place: this.registration.preferedWorkingSpace,
         photo: this.registration.photo,
-        cv: this.registration.cv
+        cv: this.registration.cv, 
+        age: this.registration.birthDate
       };
 
       this.$http
