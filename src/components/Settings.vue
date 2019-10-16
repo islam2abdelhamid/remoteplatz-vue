@@ -152,10 +152,6 @@ export default {
       newPasswordConfirm: ""
     };
   },
-  created() {
-    this.checkCurrentLogin();
-  },
-
   methods: {
     deleteAccount() {
       Swal.fire({
@@ -226,7 +222,24 @@ export default {
       if (localStorage.token) {
         this.user = JSON.parse(localStorage.getItem("currentUser"));
         if (!this.user.verified) {
-          this.$router.replace(this.$route.query.redirect || "/pending");
+          let id = this.user.id;
+          this.$http
+            .get("user_exam/user/" + id, {
+              headers: {
+                token: localStorage.token
+              }
+            })
+            .then(res => {
+              if (res.data.length < 1) {
+                this.$router.replace(this.$route.query.redirect || "/register");
+              } else if (res.data.length > 0 && this.user.video == null) {
+                this.$router.replace(this.$route.query.redirect || "/register");
+
+                console.log("you have to record video");
+              } else {
+                this.$router.replace(this.$route.query.redirect || "/pending");
+              }
+            });
         }
       } else {
         this.$router.replace(this.$route.query.redirect || "/login");
@@ -246,6 +259,9 @@ export default {
         })
         .catch(err => console.log(err.message));
     }
+  },
+  created() {
+    this.checkCurrentLogin();
   }
 };
 </script>

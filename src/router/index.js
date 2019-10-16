@@ -11,19 +11,20 @@ import Settings from '@/components/Settings'
 import Updated from '@/components/Updated'
 import ForgotPassword from '@/components/ForgotPassword'
 import Pending from '@/components/Pending'
+import Exam from '@/components/Exam'
+import Exams from '@/components/Exams'
+import Video from '@/components/Video'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Home',
       component: Home,
       meta: {
         title: 'Home Page',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -40,8 +41,7 @@ export default new Router({
       component: Community,
       meta: {
         title: 'Remoteplatz - Community',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -58,8 +58,7 @@ export default new Router({
       component: Faq,
       meta: {
         title: 'Remoteplatz - FAQ',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -76,8 +75,7 @@ export default new Router({
       component: Login,
       meta: {
         title: 'Remoteplatz - Login',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -94,8 +92,7 @@ export default new Router({
       component: Settings,
       meta: {
         title: 'Remoteplatz - Settings',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -112,8 +109,7 @@ export default new Router({
       component: Register,
       meta: {
         title: 'Join Remoteplatz Community',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -130,8 +126,7 @@ export default new Router({
       component: Thanks,
       meta: {
         title: 'Remoteplatz - Thanks Page',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -148,8 +143,7 @@ export default new Router({
       component: Updated,
       meta: {
         title: 'Updated Page',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -166,8 +160,7 @@ export default new Router({
       component: Profile,
       meta: {
         title: 'Remoteplatz - Profile',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -184,8 +177,7 @@ export default new Router({
       component: ForgotPassword,
       meta: {
         title: 'Remoteplatz - Forgot Password',
-        metaTags: [
-          {
+        metaTags: [{
             name: 'description',
             content: ''
           },
@@ -202,8 +194,59 @@ export default new Router({
       component: Pending,
       meta: {
         title: 'Remoteplatz - your profile will be verified soon !',
-        metaTags: [
+        metaTags: [{
+            name: 'description',
+            content: ''
+          },
           {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/exams',
+      name: 'Exams',
+      component: Exams,
+      meta: {
+        title: 'Remoteplatz - Exams !',
+        title: 'Remoteplatz - Exams !',
+        metaTags: [{
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/exam/:id',
+      name: 'Exam',
+      component: Exam,
+      meta: {
+        title: 'Remoteplatz - Data Structure Test !',
+        metaTags: [{
+            name: 'description',
+            content: ''
+          },
+          {
+            property: 'og:description',
+            content: ''
+          }
+        ]
+      }
+    },
+    {
+      path: '/video/',
+      name: 'Video',
+      component: Video,
+      meta: {
+        title: 'Remoteplatz - Record Your Bio Video !',
+        metaTags: [{
             name: 'description',
             content: ''
           },

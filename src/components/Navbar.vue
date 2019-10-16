@@ -118,7 +118,7 @@ export default {
       this.route = this.$route.name;
     },
     checkIfLogged() {
-      if (localStorage.getItem("currentUser")) {
+      if (localStorage.getItem("currentUser") && localStorage.token) {
         this.logged = true;
         this.user = JSON.parse(localStorage.getItem("currentUser"));
       }

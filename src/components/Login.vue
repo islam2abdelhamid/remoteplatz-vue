@@ -1,7 +1,7 @@
 <template>
   <div>
+    <loading :active.sync="isLoading" :is-full-page="fullPage"></loading>
     <Navbar />
-
     <!-- LOGIN SECTION -->
     <section id="login">
       <div class="container">
@@ -61,14 +61,19 @@
 <script>
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Loading from "vue-loading-overlay";
+
 export default {
   name: "Login",
   components: {
     Navbar: Navbar,
-    Footer: Footer
+    Footer: Footer,
+    Loading: Loading
   },
   data() {
     return {
+      fullPage: true,
+      isLoading: false,
       email: "",
       password: "",
       error: false
@@ -87,12 +92,14 @@ export default {
       }
     },
     login() {
+      this.isLoading = true;
       this.$http
         .post("/user/auth", { email: this.email, password: this.password })
         .then(request => this.loginSuccessful(request))
         .catch(() => this.loginFailed());
     },
     loginSuccessful(req) {
+      this.isLoading = false;
       if (!req.data.token) {
         this.loginFailed();
         return;
@@ -104,10 +111,27 @@ export default {
         this.error = false;
         this.$router.replace(this.$route.query.redirect || "/profile");
       } else {
+        let id = req.data.user.id;
+        this.$http
+          .get("user_exam/user/" + id, {
+            headers: {
+              token: req.data.token
+            }
+          })
+          .then(res => {
+            if (res.data.length < 1) {
+              this.$router.replace(this.$route.query.redirect || "/register");
+            } else if (res.data.length > 0 && this.user.video == null) {
+              this.$router.replace(this.$route.query.redirect || "/register");
+
+              console.log("you have to record video");
+            } else {
+              this.$router.replace(this.$route.query.redirect || "/pending");
+            }
+          });
         localStorage.token = req.data.token;
         localStorage.setItem("currentUser", JSON.stringify(req.data.user));
         this.error = false;
-        this.$router.replace(this.$route.query.redirect || "/pending");
       }
     },
     loginFailed() {

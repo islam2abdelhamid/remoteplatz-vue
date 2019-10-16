@@ -396,19 +396,19 @@
                       </div>
                       <div class="col-md-8">
                         <p v-html="user.projects" v-if="!edit"></p>
-                          <ckeditor
-                            v-if="edit"
-                            :editor="editor"
-                            placeholder="e.g. I've worked on projects where a bunch of smart people sat in a room and decided what developers needed."
-                            v-validate="'required'"
-                            name="previous projects"
-                            id="projects"
-                            cols="50"
-                            rows="10"
-                            v-model="user.projects"
-                            :config="editorConfig"
-                          ></ckeditor>
-                   
+                        <ckeditor
+                          v-if="edit"
+                          :editor="editor"
+                          placeholder="e.g. I've worked on projects where a bunch of smart people sat in a room and decided what developers needed."
+                          v-validate="'required'"
+                          name="previous projects"
+                          id="projects"
+                          cols="50"
+                          rows="10"
+                          v-model="user.projects"
+                          :config="editorConfig"
+                        ></ckeditor>
+
                         <small
                           v-if="errors.has('previous projects')"
                           class="field-text is-danger"
@@ -739,7 +739,7 @@ export default {
   },
   data() {
     return {
-       editor: ClassicEditor,
+      editor: ClassicEditor,
       editorData: "",
       editorConfig: {
         toolbar: [
@@ -798,12 +798,26 @@ export default {
     },
     checkCurrentLogin() {
       if (localStorage.token) {
-        if (localStorage.getItem("currentUser")) {
-          this.user = JSON.parse(localStorage.getItem("currentUser"));
-          if (!this.user.verified) {
-            this.$router.replace(this.$route.query.redirect || "/pending");
-          }
-          document.title = this.user.first_name + " " + this.user.last_name;
+        this.user = JSON.parse(localStorage.getItem("currentUser"));
+        if (!this.user.verified) {
+          let id = this.user.id;
+          this.$http
+            .get("user_exam/user/" + id, {
+              headers: {
+                token: localStorage.token
+              }
+            })
+            .then(res => {
+              if (res.data.length < 1) {
+                this.$router.replace(this.$route.query.redirect || "/register");
+              } else if (res.data.length > 0 && this.user.video == null) {
+                this.$router.replace(this.$route.query.redirect || "/register");
+
+                console.log("you have to record video");
+              } else {
+                this.$router.replace(this.$route.query.redirect || "/pending");
+              }
+            });
         }
       } else {
         this.$router.replace(this.$route.query.redirect || "/login");
