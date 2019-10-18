@@ -1236,6 +1236,12 @@ footer hr {
   background-color: darkred;
 }
 
+#bio strong {
+  background-color: yellow;
+  font-weight: 400;
+  line-height: 30px;
+}
+
 .Rec {
   animation-name: pulse;
   animation-duration: 1.5s;

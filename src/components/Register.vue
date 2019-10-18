@@ -201,21 +201,22 @@
           </div>
 
           <div v-if="step === 2">
-            <div class="form-group">
+            <div class="form-group" id="bio">
               <label for="bio" class="form-qs">Tell us about yourself</label>
               <p
                 class="text-muted"
               >Provide a summary about your past achievements, goals and ambitions. Tell us what makes you a perfect candidate for a remote job.</p>
-              <textarea
-                placeholder="e.g. Well, I’m currently a front end developer at Smith, where I handle our top performing client."
+
+              <ckeditor
+                :editor="editor"
+                v-validate="'required'"
                 name="bio"
                 id="bio"
                 cols="50"
                 rows="10"
-                class="form-control border-input"
-                v-validate="'required'"
                 v-model="registration.bio"
-              ></textarea>
+                :config="editorConfig"
+              ></ckeditor>
 
               <small v-if="errors.has('bio')" class="field-text is-danger">{{ errors.first('bio') }}</small>
             </div>
@@ -347,6 +348,48 @@
                   :multiple="true"
                   :taggable="true"
                 ></multiselect>
+              </div>
+              <div>
+                <div class="form-check form-check-inline" v-for="skill in value" :key="skill.id">
+                  <label class="form-check-label">
+                    <input
+                      class="form-check-input"
+                      v-validate="'required'"
+                      type="checkbox"
+                      :name="skill.name"
+                      :value="skill"
+                      v-model="selectedSkills"
+                    />
+                    {{skill.name}}
+                  </label>
+                </div>
+              </div>
+              <div class="mt-4" v-if="value.length>0">
+                <strong>Please select the years of experience per role :</strong>
+                <hr />
+                <div v-for="(skill,index) in selectedSkills" :key="index">
+                  <div
+                    class="d-md-flex"
+                    style="align-content: center;
+align-items: center;
+justify-content: space-between;
+margin-right: 41%;"
+                  >
+                    <div>
+                      <strong>{{skill.name}}</strong>
+                    </div>
+                    <div class="form-group">
+                      <label for>Select years of experience</label>
+                      <input
+                        min="0"
+                        type="number"
+                        v-validate="'required'"
+                        class="form-control"
+                        v-model="experiences[index]"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
               <small
                 v-if="errors.has('skills')"
@@ -633,7 +676,7 @@
                 </tr>
                 <tr>
                   <th scope="row">Bio</th>
-                  <td id="t-bio">{{ registration.bio }}</td>
+                  <td id="t-bio" v-html="registration.bio "></td>
                 </tr>
                 <tr>
                   <th scope="row">Programming Languages</th>
@@ -895,6 +938,8 @@ export default {
   },
   data() {
     return {
+      selectedSkills: [],
+      experiences: [],
       currentExam: "",
       questionIndex: null,
       userAnswers: [],
@@ -923,7 +968,6 @@ export default {
       recorded: false,
       recording: false,
       editor: ClassicEditor,
-      editorData: "",
       editorConfig: {
         toolbar: [
           "heading",
@@ -964,7 +1008,8 @@ export default {
         joinAs: "",
         password: "",
         passwordConfirm: "",
-        bio: "",
+        bio:
+          "<p>Doing <b class='marked'>full stack web development and general software development.</b> <br> My main areas of expertise are : <b class='marked'>front-end and back-end web development.</b> I am especially interested in <b class='marked'>back-end  web development with Node.js</b><br> I am mostly interested in working with <span class='marked'>front-end and back-end web development.</span><br> My main tech stack is: <ul><li><b class='marked'>Javascript: > 4 years professional experience </b></li><li><b class='marked'>React: > 4 years professional experience </b></li><li><b class='marked'>NodeJs: > 4 years professional experience </b></li></ul></p>",
         englishLevel: "",
         academicQualification: "",
         fieldOfStudy: "",
@@ -1029,11 +1074,12 @@ export default {
     register() {
       this.isLoading = true;
       let skills2 = [];
-      this.value.forEach(element => {
+      this.selectedSkills.forEach(element => {
         skills2.push(element.name);
       });
       this.formData = {
         technologies: skills2,
+        experiences: this.experiences,
         email: this.registration.email,
         first_name: this.registration.firstName,
         last_name: this.registration.lastName,
