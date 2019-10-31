@@ -350,6 +350,10 @@
                 ></multiselect>
               </div>
               <div>
+                <br />
+                <strong class="mt-4">Please select the years of experience per skill :</strong>
+                <br />
+
                 <div class="form-check form-check-inline" v-for="skill in value" :key="skill.id">
                   <label class="form-check-label">
                     <input
@@ -365,7 +369,6 @@
                 </div>
               </div>
               <div class="mt-4" v-if="value.length>0">
-                <strong>Please select the years of experience per role :</strong>
                 <hr />
                 <div v-for="(skill,index) in selectedSkills" :key="index">
                   <div
@@ -378,8 +381,8 @@ margin-right: 41%;"
                     <div>
                       <strong>{{skill.name}}</strong>
                     </div>
-                    <div class="form-group">
-                      <label for>Select years of experience</label>
+                    <div class="form-group" style="width:200px">
+                      <label for>years of experience</label>
                       <input
                         min="0"
                         type="number"
